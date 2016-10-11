@@ -1,0 +1,19 @@
+program p1044;
+var a:array[1..25,1..25] of longint;
+    n,i,j,k:integer;
+begin
+readln(n);
+for i:=1 to n do
+    begin
+      for j:=1 to i do read(a[i,j]);
+      readln;
+    end;
+for i:=n-1 downto 1 do
+    for j:=1 to i do
+      begin
+        if a[i+1,j]>a[i+1,j+1] then a[i,j]:=a[i,j]+a[i+1,j]
+                               else a[i,j]:=a[i,j]+a[i+1,j+1];
+      end;
+writeln(a[1,1]);
+end.
+ 

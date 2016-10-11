@@ -1,0 +1,95 @@
+#include<iostream>
+using namespace std;
+char ch[26][26]; 
+int b[26][26];
+int t,x,y,zhongi,zhongj;
+int a[10000][3];
+int tou=1,wei=1;
+int main()
+{
+	int i,j,c;
+
+	//freopen ("1117.in","r",stdin);
+    //freopen ("1117.out","w",stdout);
+
+
+	cin>>t>>x>>y;
+	for(i=1;i<=y;i++)
+	for(j=1;j<=x;j++)
+	{
+	cin>>ch[i][j];
+	if(ch[i][j]=='s'){a[1][1]=i;a[1][2]=j;b[i][j]=1;}
+	if(ch[i][j]=='m'){zhongi=i;zhongj=j;}
+	}
+	//cout<<a[1][1]<<" "<<a[1][2];
+	
+	while(tou<=wei)
+	{
+		 if(ch[a[tou][1]][a[tou][2]]!='#')
+		 c=a[tou][0]+1;
+		 else 
+		 c=a[tou][0]+2;
+		 
+	    if((a[tou][1]>1)&&(ch[a[tou][1]-1][a[tou][2]]!='o'))//向上 
+	    {
+		
+       if((b[a[tou][1]-1][a[tou][2]]==0)||(a[b[a[tou][1]-1][a[tou][2]]][0]>c))
+		{
+		wei++;a[wei][1]=a[tou][1]-1;a[wei][2]=a[tou][2];
+		b[a[tou][1]-1][a[tou][2]]=wei; a[wei][0]=c;
+		}
+		}
+		
+		if((a[tou][1]<y)&&(ch[a[tou][1]+1][a[tou][2]]!='o'))//向下 
+	    {
+		
+		if((b[a[tou][1]+1][a[tou][2]]==0)||(a[b[a[tou][1]+1][a[tou][2]]][0]>c))
+		{//cout<<a[1][1]<<" "<<a[1][2];
+		wei++;a[wei][1]=a[tou][1]+1;a[wei][2]=a[tou][2];
+		
+		b[a[tou][1]+1][a[tou][2]]=wei; 
+	
+	    a[wei][0]=c;
+	   // cout<<a[1][1]<<" "<<a[1][2]<<" "<<a[2][1]<<" "<<a[2][2];
+		}
+		
+		}
+    if((a[tou][2]>1)&&(ch[a[tou][1]][a[tou][2]-1]!='o'))//向左 
+	    {
+		 
+	  if((b[a[tou][1]][a[tou][2]-1]==0)||(a[b[a[tou][1]][a[tou][2]-1]][0]>c))
+		{
+		wei++;a[wei][1]=a[tou][1];a[wei][2]=a[tou][2]-1;
+		b[a[tou][1]][a[tou][2]-1]=wei; a[wei][0]=c;
+		}
+	}
+	   if((a[tou][2]<x)&&(ch[a[tou][1]][a[tou][2]+1]!='o'))//向右 
+	    {
+		 
+		if((b[a[tou][1]][a[tou][2]+1]==0)||(a[b[a[tou][1]][a[tou][2]+1]][0]>c))
+		{
+		wei++;a[wei][1]=a[tou][1];a[wei][2]=a[tou][2]+1;
+		b[a[tou][1]][a[tou][2]+1]=wei; a[wei][0]=c;
+		}
+	    
+		}
+		
+		tou++;
+	}//cout<<a[1][1]<<" "<<a[1][2];
+	if(a[b[zhongi][zhongj]][0]>=t)
+cout<<55555;
+	else
+	cout<<a[b[zhongi][zhongj]][0];
+//	for(i=1;i<=wei;i++)
+//	{
+//	cout<<a[i][0]<<" "<<a[i][1]<<" "<<a[i][2]<<endl;
+//	}
+	/*for(i=1;i<=y;i++)
+	{for(j=1;j<=x;j++)
+	cout<<b[i][j]<<" ";
+	cout<<endl;}*/
+	//cout<<wei;
+	
+//	system("pause");
+	return 0;
+}

@@ -1,0 +1,51 @@
+Var
+yes                   :       Array [0..20000] of Boolean;
+prime                 :       Array [0..3000] of Longint;
+a                     :       Array [1..5000] of Longint;
+n,i,ans,max,j         :       Longint;
+
+Procedure GetPrime;
+var
+    ia,k                 :       Longint;
+begin
+    Fillchar(yes,sizeof(yes),True);
+    for ia:=2 to 20000 do
+      if yes[ia] then
+        begin
+          k:=ia;
+          while k<=20000 do
+            begin
+              inc(k,ia);
+              yes[k]:=false;
+            end;
+        end;
+    Prime[0]:=0;
+    for ia:=2 to 20000 do
+      if yes[ia] then
+        begin
+          inc(prime[0]);
+          prime[prime[0]]:=ia;
+        end;
+end;
+
+Begin
+getprime;
+
+readln(n);
+for i:=1 to n do readln(a[i]);
+
+ans:=1;max:=0;
+for i:=1 to n do
+    for j:=prime[0] downto 1 do
+      if a[i] mod prime[j]=0 then
+        begin
+          if j>max then
+            begin
+              max:=j;
+              ans:=a[i];
+            end;
+          break;
+        end;
+
+writeln(ans);
+end.

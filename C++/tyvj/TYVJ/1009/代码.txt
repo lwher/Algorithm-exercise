@@ -1,0 +1,63 @@
+#include<iostream>
+#include<memory.h>
+using namespace std;
+//map用来存储立体图
+char map[501][501];
+char block[6][8]={"..+---+","./   /|","+---+ |","|   | +","|   |/.","+---+.."};
+int max(int a,int b)
+{
+    return (a>b?a:b);
+}
+void paint(int x,int y)
+{
+     for(int i=0;i<6;i++)
+     for(int j=0;j<=6;j++)
+     if(block[i][j]!='.')//记得画积木时只要画出积木的实体就行了
+     map[x+i-5][y+j]=block[i][j];
+}
+int main()
+{
+    //m表示行数，n表示列数，a用来存储矩阵
+    int m,n,a[51][51],high=0,width;//high表示输出图的高度，width表示输出图的宽度
+
+    //读入行数、列数及矩阵，并求出输出图的高度:high
+    cin>>m>>n;
+    for(int i=1;i<=m;i++)
+    for(int j=1;j<=n;j++)
+    {
+            cin>>a[i][j];
+            high=max(high,(m-i)*2+a[i][j]*3+3);
+    }
+
+    //求出输出图的宽度:width
+    width=n*4+m*2+1;
+
+    //图的值应初始化为'.'（字符','）
+    memset(map,'.',sizeof(map));
+
+    //开始画图，从内到外、从底到高、从左到右地，覆盖地画出每个积木
+    for(int i=1;i<=m;i++)
+    for(int j=1;j<=n;j++)
+    for(int k=0;k<a[i][j];k++)
+    {
+
+            //求出每个积木的左下角的字符的坐标(x,y)
+            int x,y;
+            x=high-(m-i)*2-3*k;
+            y=(j-1)*4+(m-i)*2+1;
+
+            //画出积木
+            paint(x,y);
+    }
+
+    //画出整个图
+    for(int i=1;i<=high;i++)
+    {
+            for(int j=1;j<=width;j++)
+            cout<<map[i][j];
+            cout<<endl;
+    }
+    return 0;
+}
+
+ 

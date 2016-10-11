@@ -1,0 +1,60 @@
+program ss;
+const g:array[1..8,1..2] of longint=((-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1));
+
+var map:array[1..1000,1..1000] of longint;
+    q:array[1..1000000,1..3] of longint;
+    i,j,k,m,n,s,t,l,r,ans,fr,tp:longint;
+    ch:char;
+
+procedure expand(l,r:longint);
+var i,j,u,v:longint;
+begin
+for i:=1 to 8 do
+    begin
+    u:=l+g[i,1]; v:=r+g[i,2];
+    if (u>0) and (u<=m) and (v>0) and (v<=n) and (map[u,v]>=0) then
+       begin
+       inc(tp); q[tp,1]:=u; q[tp,2]:=v;
+       if map[u,v]=0 then q[tp,3]:=0 else q[tp,3]:=1;
+       map[u,v]:=-2;
+       end;
+    end;
+end;
+
+begin
+readln(m,n);
+for i:=1 to m do
+    begin
+    for j:=1 to n do
+        begin
+        read(ch);
+        if ch='*' then map[i,j]:=-1
+        else map[i,j]:=0;
+        end;
+    readln;
+    end;
+for i:=1 to m do
+    for j:=1 to n do
+        if map[i,j]=0 then
+           for k:=1 to 8 do
+               begin
+               l:=i+g[k,1]; r:=j+g[k,2];
+               if (l>0) and (l<=m) and (r>0) and (r<=n) and (map[l,r]=-1) then inc(map[i,j]);
+               end;
+for i:=1 to m do
+    for j:=1 to n do
+        if map[i,j]=0 then
+             begin
+             fr:=1; tp:=1; q[fr,1]:=i; q[fr,2]:=j; q[fr,3]:=0; map[i,j]:=-2;
+             while fr<=tp do
+                   begin
+                   if q[fr,3]=0 then expand(q[fr,1],q[fr,2]);
+                   inc(fr);
+                   end;
+             inc(ans);
+             end;
+for i:=1 to m do
+    for j:=1 to n do
+        if map[i,j]>0 then inc(ans);
+writeln(ans);
+end.

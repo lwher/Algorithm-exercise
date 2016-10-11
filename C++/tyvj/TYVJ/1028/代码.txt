@@ -1,0 +1,30 @@
+#include<iostream>
+using namespace std;
+int h,n;
+int v[501];
+int f1[45001],f2[45001];
+int main()
+{
+	int i,j,man=0;
+	cin>>h>>n;
+	for(i=1;i<=n;i++)
+	cin>>v[i];
+	for(i=1;i<=n;i++)
+	{
+		if(v[i]>f1[v[i]])  f2[v[i]]=v[i];
+		for(j=1;j<=h;j++)
+		{
+		if((f1[j]>0)&&(j+v[i]<=h)&&(f1[j+v[i]]<f1[j]+v[i]))
+		f2[j+v[i]]=f1[j]+v[i];
+	    }
+	    for(j=1;j<=h;j++)
+	    f1[j]=f2[j];
+    }
+    
+	for(j=1;j<=h;j++)
+	if(f1[j]>man)
+	man=f1[j];
+	cout<<man;
+	//system("pause");
+	return 0;
+}

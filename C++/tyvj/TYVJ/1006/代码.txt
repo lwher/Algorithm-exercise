@@ -1,0 +1,51 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int main()
+{
+    long y,i,l=1,a=0,o,q;
+    string s;
+    getline(cin,s);
+    for(i=0;i<=s.size()-2;i++)
+    {
+    if(s[i]=='0'){l++;}
+    if(s[i]=='1'){a+=l;l++;}
+    if(s[i]=='2'){a+=2*l;l++;}
+    if(s[i]=='3'){a+=3*l;l++;}
+    if(s[i]=='4'){a+=4*l;l++;}
+    if(s[i]=='5'){a+=5*l;l++;}
+    if(s[i]=='6'){a+=6*l;l++;}  
+    if(s[i]=='7'){a+=7*l;l++;}
+    if(s[i]=='8'){a+=8*l;l++;}
+    if(s[i]=='9'){a+=9*l;l++;}
+    if(s[i]=='X'){a+=10*l;l++;}
+    }
+
+    
+    y=a%11;
+    q=s.size()-1;
+    if(s[q]=='0'){o=0;}
+    if(s[q]=='1'){o=1;}
+    if(s[q]=='2'){o=2;}
+    if(s[q]=='3'){o=3;}
+    if(s[q]=='4'){o=4;}
+    if(s[q]=='5'){o=5;}
+    if(s[q]=='6'){o=6;} 
+    if(s[q]=='7'){o=7;}
+    if(s[q]=='8'){o=8;}
+    if(s[q]=='9'){o=9;}
+    if(s[q]=='X'){o=10;}
+              
+        
+                  
+            if(y==o){cout<<"Right";} 
+            
+            if(y!=o)
+            {
+            for(i=0;i<=s.size()-2;i++) {cout<<s[i];}
+            if(y!=10)  {cout<<y;}
+            if(y==10) {cout<<'X';}
+            }  
+    //system("pause");
+    return 0;
+}

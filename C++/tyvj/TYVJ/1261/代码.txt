@@ -1,0 +1,21 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+int a,b,x,y,n;
+
+int ans;
+
+int main()
+{
+    int i,j;
+    cin>>a>>b>>x>>y>>n;
+    for(i=1;i<=a;i++)
+    for(j=1;j<=b;j++)
+    {
+     if(abs(x-i)+abs(y-j)<=n)
+     ans++;
+    }
+    cout<<ans;
+  //  system("pause");
+    return 0;
+}

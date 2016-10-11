@@ -1,0 +1,24 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int maxx,f[2001],ans;
+int main()
+{
+	bool o=0;
+	string a,b;
+	cin>>a>>b;
+	int i,j;
+	for(i=0;i<=a.size()-1;i++)
+	{maxx=0;o=0;
+	for(j=0;j<=b.size()-1;j++)
+	{
+		if((j>0)&&(maxx<f[j-1])&&(!o)) maxx=f[j-1];
+		o=0;
+		if((a[i]==b[j])&&(f[j]<maxx+1)) {f[j]=maxx+1;o=1;}
+		if(f[j]>ans) ans=f[j];
+	}
+}
+	cout<<ans;
+	//system("pause");
+	return 0;
+}

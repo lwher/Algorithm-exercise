@@ -1,0 +1,53 @@
+#include <stdio.h>  
+
+#include <stdlib.h>  
+
+int t[5001], f[5001];  
+
+int c[5001];  
+
+   
+
+int main(int argc, char **argv)  
+
+{  
+
+    int i, j;  
+
+    int n, s;  
+
+    int a, b;  
+
+    scanf("%d%d", &n, &s);  
+
+    for(i = 1; i <= n; i++){  
+
+        scanf("%d%d", &a, &b);  
+
+        t[i] = a + t[i - 1], f[i] = b + f[i - 1];  
+
+        c[i] = 0x7FFFFFFF;  
+
+    }  
+
+    for(i = 1; i <= n; i++){  
+
+        for(j = 1; j <= i; j++){  
+
+            a = c[j - 1] + s * (f[n] - f[j - 1]) + t[i] * (f[i] - f[j - 1]);  
+
+            if(c[i] > a){  
+
+                c[i] = a;  
+
+            }  
+
+        }  
+
+    }  
+
+    printf("%d\n", c[n]);  
+
+    return 0;  
+
+} 

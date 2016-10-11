@@ -1,0 +1,25 @@
+var
+n,i,j,k,p:longint;
+f:array[0..100,0..100] of longint;
+a:array[0..100] of longint;
+
+
+begin
+readln(n);
+for i:=1 to n do read(a[i]);
+readln;
+
+fillchar(f,sizeof(f),0);
+for p:=2 to n-1 do
+    for i:=1 to n-p do
+      begin
+        j:=i+p;
+        f[i,j]:=maxlongint;
+        for k:=i+1 to j-1 do
+          if f[i,j]>f[i,k]+f[k,j]+a[i]*a[k]*a[j] then
+            f[i,j]:=f[i,k]+f[k,j]+a[i]*a[k]*a[j];
+      end;
+
+writeln(f[1,n]);
+end.
+ 

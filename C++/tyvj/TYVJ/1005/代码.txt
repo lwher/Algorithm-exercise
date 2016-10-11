@@ -1,0 +1,29 @@
+#include<stdlib.h>
+
+#include<stdio.h>
+
+int f[1001];
+
+int main(){
+
+       int n,t,x,y,i,j;
+
+       for(i=1;i<=1000;i++)f[i]=0;
+
+       scanf("%d%d",&t,&n);
+
+       for(i=1;i<=n;i++){
+
+              scanf("%d%d",&x,&y);
+
+              for(j=t;j>=x;j--)
+
+                     if(f[j-x]+y>=f[j])f[j]=f[j-x]+y;
+
+       }
+
+       printf("%d\n",f[t]);
+
+       return 0;
+
+}

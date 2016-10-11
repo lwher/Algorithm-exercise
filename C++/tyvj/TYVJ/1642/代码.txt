@@ -1,0 +1,51 @@
+#include<iostream>
+#include<stdio.h>
+#include<stdlib.h>
+#include<cmath>
+using namespace std;
+int n,m,l;
+int num[110][110],sum[110][110];
+int ans,answer;
+bool ss(int shu)
+{
+	if(shu==1) return 0;
+	int i;
+	for(i=2;i<=sqrt(shu);i++)
+	if(shu%i==0) 
+	return 0;
+	return 1;
+}
+int main()
+{
+	cin>>n>>m>>l;
+	int i,j;
+	for(i=1;i<=n;i++)
+	for(j=1;j<=m;j++)
+	scanf("%d",&num[i][j]);
+	for(i=1;i<=n;i++)
+	for(j=1;j<=m;j++)
+	{
+	 if(ss(num[i][j]))
+	 sum[i][j]=sum[i-1][j]+1;
+	 else
+	 sum[i][j]=sum[i-1][j];
+	}
+	for(i=1;i<=n;i++)
+	for(j=2;j<=m;j++)
+	{
+	  sum[i][j]+=sum[i][j-1];
+	}
+	ans=sum[n][l];
+	answer=1;
+	for(i=l+1;i<=m;i++)
+	{
+	if(sum[n][i]-sum[n][i-l]>ans)
+	{ans=sum[n][i]-sum[n][i-l];answer=i-l+1;}
+    
+    
+	}
+	cout<<answer<<endl;
+
+	//system("pause");
+	return 0;
+}

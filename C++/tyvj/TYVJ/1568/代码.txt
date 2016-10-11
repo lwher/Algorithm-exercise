@@ -1,0 +1,59 @@
+#include <iostream> 
+#include <cstdio> 
+#include <cstring> 
+#include <algorithm> 
+#include <cstdlib> 
+#include <cmath> 
+#include <map> 
+#include <vector> 
+#define sqr(a) a*a 
+  
+using namespace std; 
+  
+const long limit=1000000001; 
+int all=0; 
+long long num[100001]; 
+  
+long long calc(long long x){ 
+    int now=0; 
+    while (x){ 
+        now+=x%10; 
+        x=x/10; 
+    } 
+    return now; 
+} 
+  
+int check(long long x){ 
+    if (calc(sqr(x))==sqr(calc(x))) 
+        return 1; 
+    else return 0; 
+} 
+  
+void dfs(long long now){ 
+    //cout <<now <<endl; 
+    if (now>limit) return; 
+    if (check(now)) { 
+        all++; 
+        num[all]=now; 
+    } 
+    if (now) dfs(now*10); 
+    dfs(now*10+1); 
+    dfs(now*10+2); 
+    dfs(now*10+3); 
+} 
+  
+int main(){ 
+    long long l,r; 
+    memset(num,0,sizeof(num)); 
+    cin >>l >>r; 
+    dfs(0); 
+    all+=10; 
+    sort(num,num+all); 
+    int b=1,e=all; 
+    while (!num[b]) b++; 
+    while (!num[e]) e--; 
+    while (num[b]<l) b++; 
+    while (num[e]>r) e--; 
+    cout <<e-b+1 <<endl; 
+    return 0; 
+} 

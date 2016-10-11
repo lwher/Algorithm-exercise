@@ -1,0 +1,61 @@
+program test;
+var a,b:array[1..100] of longint;
+    i,j,k,n,m,mid,temp:longint;
+    zz:boolean;
+procedure qsort(s,t:longint);
+begin
+  i:=s;
+  j:=t;
+  mid:=a[(i+j) div 2];
+  repeat
+    while a[i]<mid do i:=i+1;
+    while mid<a[j] do j:=j-1;
+    if i<=j then
+      begin
+        temp:=a[i];
+        a[i]:=a[j];
+        a[j]:=temp;
+        temp:=b[i];
+        b[i]:=b[j];
+        b[j]:=temp;
+        i:=i+1;
+        j:=j-1;
+      end;
+  until i>j;
+  if s<j then qsort(s,j);
+  if i<t then qsort(i,t);
+end;
+
+ 
+
+begin
+  readln(n,m);
+  for i:=1 to n do
+    readln(a[i],b[i]);
+  qsort(1,n);
+  zz:=true;
+  j:=0;
+  while zz do
+    begin
+      zz:=false;
+      k:=m;
+      for i:=n downto 1 do
+        while (b[i]>0)and(k-a[i]>=0) do
+          begin
+            b[i]:=b[i]-1;
+            k:=k-a[i];
+          end;
+      for i:=1 to n do
+        if (b[i]>0)and(k>0) then
+          begin
+            b[i]:=b[i]-1;
+            k:=k-a[i];
+          end;
+      if k<=0 then
+        begin
+          j:=j+1;
+          zz:=true;
+        end;
+    end;
+  writeln(j);
+end.

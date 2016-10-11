@@ -1,0 +1,19 @@
+powermaxFrom oibltx描述 Description
+对于一个整数K，有很多组数对(M,N)满足如下两个性质：
+1．1<=M<=N<=K
+2．(N^2-MN-M^2)^2=1
+求一对(M,N)使M^2+N^2最大.
+输入格式 InputFormat
+一个整数K
+输出格式 OutputFormat
+两个整数M,N
+
+样例输入 SampleInput [复制数据]
+1995
+
+样例输出 SampleOutput [复制数据]
+987 1597
+
+数据范围和注释 Hint
+时限0.5s
+1<=k<=10^9

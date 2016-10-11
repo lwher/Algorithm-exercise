@@ -1,0 +1,45 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+int x,i,j,man,aa;
+int n,m,a[101][101],f[102][101][101];
+int main()
+{
+    cin>>n>>m;
+    for(i=1;i<=n;i++)
+    for(j=1;j<=m;j++)
+    cin>>a[i][j];
+   
+    for(x=3;x<=n+m;x++)
+    {
+    if(x>n) aa=n;
+    else aa=x;
+    for(i=1;i<=aa;i++)
+    for(j=1;j<=aa;j++)
+    {
+     
+     if((x-i<=m)&&(x-j<=m))
+     {
+     man=f[x-1][i][j];
+     if(f[x-1][i-1][j]>man)
+     man=f[x-1][i-1][j];
+     if(f[x-1][i-1][j-1]>man)
+     man=f[x-1][i-1][j-1];
+     if(f[x-1][i][j-1]>man)
+     man=f[x-1][i][j-1];
+     if(i==j)
+     man+=a[i][x-i];
+     if(i!=j)
+     {man+=a[i][x-i];
+      man+=a[j][x-j];}
+     
+     f[x][i][j]=man;
+     }
+     }
+     }
+     f[2][0][0]=a[1][1];
+     cout<<f[m+n][n][n];
+   //  system("pause");
+     return 0;
+}

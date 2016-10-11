@@ -1,0 +1,54 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+int n;
+long a[20002];
+int wei=0;
+int ans=0;
+void put(int y)
+{
+	int m;
+	if(a[y]<a[y/2])
+	{m=a[y];a[y]=a[y/2];a[y/2]=m;
+	put(y/2);
+	}
+}
+void get(int y)
+{
+	int m;
+	if((a[y*2]<=a[y*2+1])&&(a[y]>a[y*2]))
+	{m=a[y];a[y]=a[y*2];a[y*2]=m;get(y*2);}
+	else 
+	if((a[y*2]>a[y*2+1])&&(a[y]>a[y*2+1]))
+	{m=a[y];a[y]=a[y*2+1];a[y*2+1]=m;get(y*2+1);}
+	
+}
+int main()
+{
+	int i,x;
+	for(i=1;i<=20001;i++)
+	a[i]=999999999;
+	cin>>n;
+	for(i=1;i<=n;i++)
+	{cin>>x;wei++;a[wei]=x;put(wei);}
+//	for(i=1;i<=n;i++)
+//	cout<<a[i]<<" ";
+
+	while(wei>2)
+	{
+		if(a[2]<a[3]) {a[2]=a[2]+a[1];ans+=a[2];get(2);}
+		else if(a[2]>=a[3]) {a[3]=a[3]+a[1];ans+=a[3];get(3);}
+		a[1]=a[wei];a[wei]=999999999;wei--;get(1);
+		
+    }
+    //cout<<ans;
+   
+    if(a[2]!=999999999)
+    ans+=a[2];
+    ans+=a[1];
+    cout<<ans;
+    
+    
+  //  system("pause");
+    return 0;
+}

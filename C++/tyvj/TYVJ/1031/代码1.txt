@@ -1,0 +1,62 @@
+#include<iostream>
+using namespace std;
+int s,t;
+int a[2501][2501],b[2501][2501];
+bool mark[2501];
+int qi,zhong;
+int d[2501],l[2501],w[10000];
+int head,tail;
+void init()
+{
+    int i,aa,bb,time;
+    for(i=1;i<=s;i++) 
+    {
+    cin>>aa>>bb>>time;
+    if((a[aa][bb]==0)&&(a[bb][aa]==0))
+    {b[aa][0]++;b[aa][b[aa][0]]=bb;a[aa][bb]=time;
+     b[bb][0]++;b[bb][b[bb][0]]=aa;a[bb][aa]=time;}
+    if((a[aa][bb]>0)&&(a[bb][aa]>0)&&(time<a[aa][bb]))
+    {a[aa][bb]=time;a[bb][aa]=time;}
+    }
+         
+}
+void doing(int s)
+{
+     int i,now;
+     head=1;tail=1;
+     d[s]=0;
+     w[1]=s;
+     mark[s]=1;
+     while(head<=tail)
+     {
+      now=w[head];
+      for(i=1;i<=b[now][0];i++)
+      {
+        if(d[b[now][i]]>l[now]+a[now][b[now][i]])
+        {
+        d[b[now][i]]=l[now]+a[now][b[now][i]];
+        l[b[now][i]]=l[now]+a[now][b[now][i]];
+        
+        if(!mark[b[now][i]])
+        {tail++;w[tail]=b[now][i];mark[b[now][i]]=1;}
+        }
+      }
+      mark[w[head]]=0;
+      head++;
+      }
+
+} 
+int main()
+{
+    int i,j;
+    
+    cin>>t>>s>>qi>>zhong;
+    for(i=1;i<=2501;i++)
+    d[i]=9999999;
+    
+    init();
+    doing(qi);
+    cout<<l[zhong]<<endl;
+    
+      return 0;
+}

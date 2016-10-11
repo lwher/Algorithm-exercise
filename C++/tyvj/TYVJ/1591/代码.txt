@@ -1,0 +1,81 @@
+#include <cstdlib>
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+#include <algorithm>
+
+using namespace std;
+
+const int maxn = 200010;
+int u[maxn], v[maxn], l[maxn], r[maxn];
+
+namespace UFS
+{
+	int fa[maxn];
+	void UFS_Init(int n)
+	{
+		for(int i = 1; i <= n; i++)	fa[i] = i;
+		return ;
+	}
+	int UFS_Getf(int u)
+	{
+		if(fa[u] == u)	return u;
+		else	fa[u] = UFS_Getf(fa[u]);
+		return fa[u];
+	}
+	void UFS_Link(int u, int v)
+	{
+		fa[UFS_Getf(u)] = UFS_Getf(v);
+		return ;
+	}
+	bool UFS_Ask(int u, int v)
+	{
+		if(UFS_Getf(u) == UFS_Getf(v))	return true;
+		else	return false;
+	}
+}
+using namespace UFS;
+
+void Init(int &n, int &m, int &k)
+{
+	cin >> n >> m >> k;
+	UFS_Init(n);
+	for(int i = 1; i <= m; i++)
+	{
+		scanf("%d%d%d", &u[i], &v[i], &l[i]);
+		r[i] = i;
+	}
+}
+
+bool CMP(const int a, const int b){ return l[a] < l[b]; }
+
+long long Kruskal(int n, int m, int k)
+{
+	long long ans = 0, anst = 0;
+	sort(r+1, r+1+m, CMP);
+	for(int i = 1; i <= m; i++)
+	{
+		int e = r[i], x = UFS_Getf(u[e]), y = UFS_Getf(v[e]);
+		if(x != y)
+		{
+			ans += l[e];
+			UFS_Link(x, y);
+		}
+	}
+	for(int i = 1; i <= n; i++)
+	{
+		if(!UFS_Ask(i, k))	anst++;
+	}
+	if(anst)	ans = anst;
+	return ans;
+}
+
+int main()
+{
+	int n, m, k;
+	Init(n, m, k);
+	cout << Kruskal(n, m, k) << endl;
+
+	return 0;
+}

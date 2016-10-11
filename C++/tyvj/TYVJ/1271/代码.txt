@@ -1,0 +1,70 @@
+#include <cstdlib>
+#include <iostream>
+#include <cstring>
+#include <stdio.h>
+#include <cstring>
+using namespace std;
+int n,sum;
+string ans[1000];
+void dfs(int now,int x,string s,int k)//now上一个数字，x位数，s方案，k当前算式的计算值
+{
+     int i,j,t,h;
+     string s1,s2,s3;
+     bool can;
+     if (x==n+1)
+     {
+         if (k==0) ans[++sum]=s;
+         return ;
+     }
+     s1=s+'+';
+     s1+=(x+48);//如果添加加号得到的方案
+     s2=s+'-';
+     s2+=(x+48);//如果添加减号得到得方案
+     dfs(x,x+1,s1,k+x);
+     dfs(x,x+1,s2,k-x);
+
+/*使加入的数字与前面的数字组成同一个数字*/
+     i=s.length()-1;
+     while (i&&(((s[i]<='9')&&(s[i]>='0'))||(s[i]==' '))) i--;//找这个数字前的符号
+     can=1;
+     if (!i)//从开始就是一个数
+     {
+         t=now*10+x;
+         s3=s+' ';
+         s3+=(x+48);
+         dfs(t,x+1,s3,t);
+         can=0;
+     }
+     if (can)
+     {
+         if (s[i]=='+') t=k-now+now*10+x;//自己想下为什么吧
+         if (s[i]=='-') t=k+now-(now*10+x);
+     }
+     s3=s+' ';
+     s3+=(x+48);
+     if (can) dfs(now*10+x,x+1,s3,t);
+}
+int cmp(const void *a,const void *b)
+{
+    string *aa=(string *)a;
+    string *bb=(string *)b;
+    if (*aa>*bb) return 1;
+    return -1;
+}
+void solve()
+{
+     int i,j;
+     scanf("%d\n",&n);
+     sum=0;
+     dfs(1,2,"1",1);
+     qsort(&ans[1],sum,sizeof(ans[0]),cmp);
+     for (i=1;i<=sum;i++)
+     cout<<ans[i]<<endl;
+}
+int main(int argc, char *argv[])
+{
+   // freopen("P1271.in","r",stdin);
+   // freopen("P1271.out","w",stdout);
+    solve();
+    return 0;
+}

@@ -1,0 +1,28 @@
+#include<iostream>
+#include<stdio.h>
+#include<cmath>
+#include <algorithm>
+using namespace std;
+int v[10001];
+int c[10001];
+int n,k;
+long long int ans;
+int main()
+{
+	int i,j;
+	cin>>n>>k;
+	for(i=1;i<=n;i++)
+	scanf("%d",&v[i]);
+	
+	sort(v+1,v+n+1);
+    
+	for(i=1;i<=n-1;i++)
+    c[i]=abs(v[i]-v[i+1]);
+	sort(c+1,c+n);
+	
+	for(i=1;i<=k;i++)
+	ans+=c[i];
+	cout<<ans;
+	//system("pause");
+	return 0;
+}

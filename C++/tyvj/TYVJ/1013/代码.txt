@@ -1,0 +1,67 @@
+#include<iostream>
+#include<memory.h>
+using namespace std;
+//求两数中较大者
+int max(int a,int b)
+{
+    return (a>b?a:b);
+}
+//求两数中较小者
+int min(int a,int b)
+{
+    return (a<b?a:b);
+}
+int main()
+{
+  //n表示MM的数目，m表示现有的大洋数，r表示现有的人品
+  //数组rmb、rp、time分别用于存储泡某MM所需的rmb、rp和time
+    int n,m,r,time[101],rmb[101],rp[101],dt_time[101][101],dt_numOfMM[101][101];
+
+
+    //读入数据
+    cin>>n;
+    for(int i=1;i<=n;i++)
+    cin>>rmb[i]>>rp[i]>>time[i];
+    cin>>m>>r;
+
+
+   //初始化数组
+    memset(dt_time,1000000000,sizeof(dt_time));
+    memset(dt_numOfMM,-1,sizeof(dt_numOfMM));
+    dt_time[0][0]=0;
+    dt_numOfMM[0][0]=0;
+
+
+   //核心代码
+    for(int i=1;i<=n;i++)
+    for(int j=m;j>=rmb[i];j--)
+    for(int k=r;k>=rp[i];k--)
+    {
+      if(dt_numOfMM[j-rmb[i]][k-rp[i]]+1>dt_numOfMM[j][k]&&dt_numOfMM[j-rmb[i]][k-rp[i]]!=-1)
+      {
+        dt_numOfMM[j][k]=dt_numOfMM[j-rmb[i]][k-rp[i]]+1;
+        dt_time[j][k]=dt_time[j-rmb[i]][k-rp[i]]+time[i];
+      }
+      else if(dt_numOfMM[j-rmb[i]][k-rp[i]]+1==dt_numOfMM[j][k]&&dt_time[j-rmb[i]][k-rp[i]]+time[i]<dt_time[j][k])
+         {
+           dt_numOfMM[j][k]=dt_numOfMM[j-rmb[i]][k-rp[i]]+1;
+           dt_time[j][k]=dt_time[j-rmb[i]][k-rp[i]]+time[i];
+         }
+    }
+
+
+   //寻找泡到最多MM所用的最少时间:min
+    int max=0,min=1000000000;
+    for(int i=0;i<=m;i++)
+    for(int j=0;j<=r;j++)
+    if(dt_numOfMM[i][j]>max||(dt_numOfMM[i][j]==max&&dt_time[i][j]<min))
+    {
+       max=dt_numOfMM[i][j];
+       min=dt_time[i][j];
+    }
+
+
+    //输出结果
+    cout<<min<<endl;
+    return 0;
+}

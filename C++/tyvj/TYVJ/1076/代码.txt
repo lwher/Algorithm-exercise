@@ -1,0 +1,27 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+int d[27][27],a[27][27];
+int ans,n;
+void doing(int top,int lie,int aa)
+{
+	if(top==n+1) {if(ans<aa%100)ans=aa%100;return;}
+	
+	
+	
+		doing(top+1,lie,aa+a[top][lie]);
+		doing(top+1,lie+1,aa+a[top][lie]);
+	
+}
+int main()
+{
+	int i,j;
+	cin>>n;
+	for(i=1;i<=n;i++)
+	for(j=1;j<=i;j++)
+	cin>>a[i][j];
+	doing(1,1,0);
+	cout<<ans;
+	//system("pause");
+	return 0;
+}

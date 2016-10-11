@@ -1,0 +1,65 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+int a[1001],up[1001],bh[1001];
+int n,m;
+int ans;
+void cl(int w)
+{
+     int q,x=w,l;
+     while(a[x/2]>a[x])
+     {
+        q=a[x/2];
+        a[x/2]=a[x];
+        a[x]=q;
+        l=bh[x];
+        bh[x]=bh[x/2];
+        bh[x/2]=l;
+        x=x/2;
+     }
+}
+void wh(int x)
+{
+     int w;
+     if(x*2<=n && a[x*2]<a[x])
+     {
+       w=a[x*2];
+       a[x*2]=a[x];
+       a[x]=w;
+       w=bh[x];
+       bh[x]=bh[x*2];
+       bh[x*2]=w;
+       wh(x*2);
+     }
+     if(x*2+1<=n && a[x*2+1]<a[x])
+     {
+       w=a[x*2+1];
+       a[x*2+1]=a[x];
+       a[x]=w;
+       w=bh[x];
+       bh[x]=bh[x*2+1];
+       bh[x*2+1]=w;
+       wh(x*2+1);
+     }
+}
+int main()
+{
+    a[0]=-1;
+    
+    cin>>n>>m;
+    int i,j;
+    for(i=1;i<=n;i++)
+    {scanf("%d%d",&a[i],&up[i]);bh[i]=i;cl(i);}
+    j=0;
+    while(j<m)
+    {
+      ans+=a[1];
+      a[1]+=up[bh[1]];
+      wh(1);
+      
+      j++;
+    }
+    cout<<ans;
+   // system("pause");
+    return 0;
+}

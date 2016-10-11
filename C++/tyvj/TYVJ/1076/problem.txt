@@ -1,0 +1,15 @@
+描述 Description
+数字三角形
+要求走到最后mod 100最大输入格式 InputFormat
+第1行n，表示n行 <=25
+第2到n+1行为每个的权值输出格式 OutputFormat
+mod 100最大值
+
+样例输入 SampleInput [复制数据]
+2
+1
+99 98
+
+样例输出 SampleOutput [复制数据]
+99
+

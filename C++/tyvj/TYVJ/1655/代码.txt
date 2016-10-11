@@ -1,0 +1,50 @@
+var time:array[0..2000]of longint;
+ v:array[0..2000]of boolean;
+ n,m:longint;
+ left,right,mid:int64;
+procedure work;
+var i:longint;
+ tot,num:int64;
+begin
+ fillchar(v,sizeof(v),false);
+ tot:=0;num:=0;
+ for i:=1 to m do
+ begin
+ if (mid-1)mod time[i]=0 then
+ begin
+ v[i]:=true;
+ inc(num);
+ end;
+ tot:=tot+(mid-2+time[i])div time[i];
+ end;
+ if n<=tot then begin right:=mid-1; exit;end;
+ if n>tot+num then begin left:=mid+1;exit;end;
+
+
+
+ for i:=1 to m do
+ if v[i]then
+ begin
+ inc(tot);
+ if n=tot then
+ begin
+ writeln(i);
+ halt;
+ end;
+ end;
+end;
+procedure main;
+var i:longint;
+begin
+ read(n,m);
+ for i:=1 to m do read(time[i]);
+ left:=0;right:=200000000000000;
+ while left<=right do
+ begin
+ mid:=(left+right) shr 1;
+ work;
+ end;
+end;
+begin
+ main;
+end.

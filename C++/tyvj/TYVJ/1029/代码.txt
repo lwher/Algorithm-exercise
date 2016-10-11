@@ -1,0 +1,30 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int ans,an;
+int main()
+{
+    string s,d;
+    cin>>s;
+    cin>>d;
+    int i;
+    bool kk=1;
+    for(i=0;i<=s.size()-1;i++)
+    {
+      while(kk)
+      {
+      
+      if((i+an<s.size())&&(d.find(s.substr(i,an+1))>=0)&&(d.find(s.substr(i,an+1))<d.size()-1))
+      {an++;}
+      
+      else
+      kk=0;
+      
+      }
+      if(an>ans)ans=an;
+      kk=1;
+    }
+    cout<<ans;
+    //system("pause");
+    return 0;
+} 

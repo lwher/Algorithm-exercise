@@ -1,0 +1,56 @@
+#include<iostream>
+using namespace std;
+struct sth
+{
+       int l,r,v,fa;
+};
+sth a[301];
+int n,m;
+bool mark[301];
+int f[301][301];
+void doing(int i,int k)
+{
+     if((i==0)||(k==0))return;
+     if(f[i][k]!=0) return;
+     int j;
+     
+     doing(a[i].r,k);f[i][k]=f[a[i].r][k];
+     for(j=0;j<=k-1;j++)
+     {
+     doing(a[i].l,j);
+     doing(a[i].r,k-j-1);
+     
+     if(f[a[i].l][j]+f[a[i].r][k-j-1]+a[i].v>f[i][k])
+     f[i][k]=f[a[i].l][j]+f[a[i].r][k-j-1]+a[i].v;
+     }
+    
+}
+int main()
+{
+    int i,j;
+    cin>>n>>m;
+    for(i=1;i<=n;i++)
+    {
+     cin>>a[i].fa>>a[i].v;
+     if(a[a[i].fa].l==0)
+     a[a[i].fa].l=i;
+     else
+     for(j=1;j<=n;j++)
+     {if((mark[j])&&(a[j].fa==a[i].fa)&&(a[j].r==0)&&(i!=j))
+     a[j].r=i;
+     }
+     mark[i]=1;
+    }
+    /* for(i=0;i<=n;i++)
+    { for(j=0;j<=m;j++)
+    {
+     cout<<f[i][j]<<" ";
+    }
+    cout<<endl;}*/
+    
+    doing(a[0].l,m);
+    cout<<f[a[0].l][m];
+    
+  //  system("pause");
+    return 0;
+}

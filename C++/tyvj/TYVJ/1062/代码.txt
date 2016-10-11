@@ -1,0 +1,60 @@
+program ex;
+var n,t,i,j,k,p,m,ji,ji2,maxr,minr,z:longint;
+    sum,a:array[0..100] of longint;
+    f,g:array[1..100,1..100] of longint;
+function max(x,y:longint):longint;
+begin
+  if x>y then exit(x) else exit(y);
+end;
+function min(x,y:longint):longint;
+begin
+  if x<y then exit(x) else exit(y);
+end;
+begin
+  fillchar(f,sizeof(f),127);
+  readln(n,t);
+  for i:=1 to n do
+   begin
+     read(a[i]);
+     z:=z+a[i];
+     sum[i]:=sum[i-1]+a[i];
+   end;
+  for i:=1 to n do f[i,i]:=0;
+  for p:=1 to n do
+   for i:=1 to n do
+    begin
+      j:=i+p-1;
+      if j<=n then
+       begin
+         for k:=i to j-1 do
+          begin
+           f[i,j]:=min(f[i,j],f[i,k]+f[k+1,j]+sum[j]-sum[i-1]);
+           g[i,j]:=max(g[i,j],g[i,k]+g[k+1,j]+sum[j]-sum[i-1]);
+          end;
+       end else
+      if j>n then
+       begin
+         m:=j mod n;
+         for k:=i to j-1 do
+          begin
+           ji:=k mod n;
+           if ji=0 then ji:=n;
+           ji2:=(ji+1) mod n;
+           if ji2=0 then ji2:=n;
+           f[i,m]:=min(f[i,m],f[i,ji]+f[ji2,m]+z-(sum[i-1]-sum[m]));
+           g[i,m]:=max(g[i,m],g[i,ji]+g[ji2,m]+z-(sum[i-1]-sum[m]));
+          end;
+       end;
+    end;
+  minr:=maxlongint;
+  for i:=1 to n do
+   begin
+     p:=i+n-1;
+     if p>n then p:=p mod n;
+     if f[i,p]<minr then minr:=f[i,p];
+     if g[i,p]>maxr then maxr:=g[i,p];
+   end;
+  if t>maxr then writeln('It is easy') else
+   if t<minr then writeln('I am..Sha...X') else
+    writeln('I will go to play WarIII');
+end.

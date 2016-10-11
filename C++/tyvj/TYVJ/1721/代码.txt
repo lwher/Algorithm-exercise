@@ -1,0 +1,50 @@
+#include<iostream>
+#include<stdio.h>
+#include<stdlib.h>
+#include<cmath>
+using namespace std;
+int fa[100010],ez[100010];
+int n,m;
+int getfa(int xx)
+{
+	if(fa[xx]==0)  return xx;
+	else return fa[xx]=getfa(fa[xx]);
+}
+int main()
+{
+	int p,a,b,x,y;
+	cin>>n>>m;
+	int i;
+	for(i=1;i<=n;i++)
+	{ez[i]=1;}
+	
+	for(i=1;i<=m;i++)
+	{
+	  scanf("%d",&p);
+	  if(p==1)
+	  {
+		 scanf("%d%d",&a,&b);
+		 x=getfa(a);
+		 y=getfa(b);
+		 if(x==y)
+		 {
+			 printf("Yes\n");
+		 }
+		 else
+		 {
+		     fa[y]=x;
+		     ez[x]+=ez[y];
+		     printf("No\n");
+		 }
+	  }
+	  if(p==2)
+	  {
+		 
+		scanf("%d",&a);
+		x=getfa(a);
+		printf("%d\n",ez[x]-1);
+	  }
+	}
+	//system("pause");
+	return 0;
+}

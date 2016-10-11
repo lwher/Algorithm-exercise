@@ -1,0 +1,64 @@
+#include <cstdlib>
+#include <iostream>
+#include <stdio.h>
+#include <cstring>
+using namespace std;
+typedef int a1[1501];
+typedef int a2[30001];
+a1 num;
+a2 sum;
+int len;
+int read(a1 &num)
+{
+     int i,j,t;
+     char c;
+     c=getchar();
+     if ((c>'9')||(c<'0')) return 0;
+     num[0]=0;
+     while ((c<='9')&&(c>='0'))
+     {
+           num[++num[0]]=c-48;
+           c=getchar();
+     }
+     for (i=1;i<=num[0]/2;i++)
+     {
+         t=num[i];
+         num[i]=num[num[0]-i+1];
+         num[num[0]-i+1]=t;
+     }
+     return 1;
+}
+void jia(a1 &num,a2 &sum)
+{
+     int i,jin;
+     if (sum[0]<num[0]) sum[0]=num[0];
+     for (i=1;i<=num[0]+1;i++)
+     {
+         sum[i+1]+=(sum[i]+num[i])/10;
+         sum[i]+=num[i];
+         sum[i]%=10;
+     }
+     if (sum[sum[0]+1]>0) sum[0]++;
+}
+void solve()
+{
+     int i,j;
+     memset(sum,0,sizeof(sum));
+     sum[0]=1;
+     sum[1]=0;
+     while (read(num))
+     {
+         jia(num,sum);
+         memset(num,0,sizeof(num));
+     }
+     for (i=sum[0];i>1;i--)
+     printf("%d",sum[i]);
+     printf("%d\n",sum[1]);
+}
+int main(int argc, char *argv[])
+{
+    //freopen("P1040.in","r",stdin);
+   // freopen("P1040.out","w",stdout);
+    solve();
+    return 0;
+}

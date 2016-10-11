@@ -1,0 +1,63 @@
+#include<iostream>
+#include<stdio.h>
+#include<cmath>
+#include<algorithm>
+#define INF 0x7fffffff
+using namespace std;
+struct sth
+{
+	int weizhi,kind;
+}a[1000100];
+bool mark[70];
+int kk[70];
+int zs,xs,next;
+int n,k;
+int t;
+int sz;
+int ans=INF; 
+inline bool comp(sth aa,sth bb)
+{
+	return aa.weizhi<bb.weizhi;
+}
+int main()
+{
+	//freopen("gift.in","r",stdin);
+	//freopen("gift.out","w",stdout);
+	int x;
+	cin>>n>>k;
+	int i,j;
+	
+	for(i=1;i<=k;i++)
+	{
+		scanf("%d",&t);
+		for(j=1;j<=t;j++)
+		{
+		   scanf("%d",&x);
+		   sz++;
+		   a[sz].weizhi=x;
+		   a[sz].kind=i;
+		}
+    }
+    sort(a+1,a+1+n,comp);
+    int l=1,r=1;
+    kk[a[l].kind]++;
+    zs=1;
+    while(r<=n)
+    {
+	   while(kk[a[l].kind]>1)
+       {kk[a[l].kind]--;l++;}
+		if(zs==k)
+       {
+    	if(ans>a[r].weizhi-a[l].weizhi)
+    	ans=a[r].weizhi-a[l].weizhi;
+       }
+	   r++;
+	   kk[a[r].kind]++;
+	   if(kk[a[r].kind]==1) zs++;
+      
+    }
+    
+    cout<<ans<<endl;
+//	system("pause");
+	return 0;
+}

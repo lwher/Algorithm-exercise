@@ -1,0 +1,31 @@
+#include<iostream>
+#include<stdio.h>
+
+using namespace std;
+int n,m;
+int v[1000001],f[1000001];
+int ans=99999999;
+int main()
+{
+	int INF=99999999;
+	int i,j;
+	cin>>n>>m;
+	for(i=1;i<=n;i++)
+	scanf("%d",&v[i]);
+	//memset(f,127,sizeof(f));
+	for(i=1;i<=m;i++)
+	{f[i]=v[i];}
+	for(i=m+1;i<=n;i++)
+	{
+		INF=99999999;
+		for(j=i-m;j<i;j++)
+		if(f[j]<INF)
+		INF=f[j];
+		f[i]=INF+v[i];
+    }
+	for(i=n-m+1;i<=n;i++)
+	if(f[i]<ans) ans=f[i];
+	cout<<ans;
+	//system("pause");
+	return 0;
+}

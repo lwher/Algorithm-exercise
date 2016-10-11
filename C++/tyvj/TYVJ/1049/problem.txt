@@ -1,0 +1,16 @@
+描述 Description
+求最长不下降子序列的长度输入格式 InputFormat
+第一行为n，表示n个数
+第二行n个数输出格式 OutputFormat
+最长不下降子序列的长度
+
+样例输入 SampleInput [复制数据]
+3
+1 2 3
+
+样例输出 SampleOutput [复制数据]
+3
+
+数据范围和注释 Hint
+N小于5000
+for each num <=maxint

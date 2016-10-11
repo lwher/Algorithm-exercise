@@ -1,0 +1,32 @@
+program ex;
+var z,i,n,k:longint;
+    c,a:array[1..10] of longint;
+    b:array[1..10] of boolean;
+procedure print;
+var i:longint;
+begin
+  for i:=1 to n-1 do
+   if abs(c[a[i]]-c[a[i+1]])>k then exit;
+  if abs(c[a[1]]-c[a[n]])>k then exit;
+  inc(z);
+end;
+procedure try(v:longint);
+var i:longint;
+begin
+  if v>n then print else
+   for i:=1 to n do
+    if b[i] then
+      begin
+       a[v]:=i;
+       b[i]:=false;
+       try(v+1);
+       b[i]:=true;
+      end;
+end;
+begin
+  readln(n,k);
+  for i:=1 to n do readln(c[i]);
+  fillchar(b,sizeof(b),true);
+  try(1);
+  writeln(z div n);
+end.

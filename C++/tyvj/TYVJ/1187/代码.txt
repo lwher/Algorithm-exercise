@@ -1,0 +1,31 @@
+#include<iostream>
+using namespace std;
+int n,t;
+int d[101],a[1001],b[1001],tt[101];
+int main()
+{
+	int i,j;
+	cin>>n>>t;
+	for(i=1;i<=n;i++)
+	cin>>d[i]>>tt[i];
+	for(i=1;i<=n;i++)
+	{
+	 if((tt[i]<=t)&&(d[i]>a[tt[i]]))
+	 {b[tt[i]]=d[i];}
+	 for(j=1;j<=t;j++)
+	 {
+		if((a[j]>0)&&(j+tt[i]<=t)&&(a[j+tt[i]]<a[j]+d[i]))
+	    b[j+tt[i]]=a[j]+d[i];
+	 }
+	 for(j=1;j<=t;j++)
+	 a[j]=b[j];
+	}
+	int ans;
+	ans=a[1];
+	for(j=1;j<=t;j++)
+	if(ans<a[j])
+	ans=a[j];
+	cout<<ans;
+	//system("pause");
+	return 0;
+}

@@ -1,0 +1,33 @@
+var
+n,i:longint;
+ans:qword;
+a:array[1..10000] of qword;
+procedure qsort(s,t:longint);
+var
+i,j,x,temp:longint;
+begin
+     i:=s; j:=t; x:=a[(i+j) div 2];
+     repeat
+           while a[i]<x do inc(i);
+           while a[j]>x do dec(j);
+           if i<=j then
+           begin
+                temp:=a[i];
+                a[i]:=a[j];
+                a[j]:=temp;
+                inc(i);
+                dec(j);
+           end;
+     until i>j;
+     if s<j then qsort(s,j);
+     if i<t then qsort(i,t);
+end;
+
+begin
+     readln(n);
+     for i:=1 to n do readln(a[i]);
+     qsort(1,n);
+     for i:=1 to n-1 do
+         ans:=ans+(n-i)*i*(a[i+1]-a[i]);
+     writeln(ans*2);
+end.

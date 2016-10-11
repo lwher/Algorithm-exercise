@@ -1,0 +1,85 @@
+#include<iostream>
+#include<stdio.h>
+#include<stdlib.h>
+#include<cmath>
+#include<string.h>
+using namespace std;
+int tree[500010];
+int num[100010];
+int xg[100010],last[100010],pre[100010];
+int gs[100010],yuan[100010];
+long long  ans[100010];
+int n,m;
+int maxx;
+__int64 answer;
+inline int lowbit(int x)
+{
+	return ((x)&(-x));
+}
+void addtree(int x,int shu)
+{
+	while(x<=500010)
+	{
+	   tree[x]+=shu;
+	   x+=lowbit(x);
+	}
+}
+int ask(int x)
+{
+   int sum=0;
+   while(x>0)
+   {
+		sum+=tree[x];
+		x-=lowbit(x);
+   }
+   return sum;
+}
+int main()
+{
+    scanf("%d%d",&m,&n);
+    int i,j;
+    for(i=1;i<=m;i++)
+    {
+    scanf("%d",&num[i]);
+    if(num[i]>maxx) 
+    maxx=num[i];
+    }
+    for(i=1;i<=n;i++)
+    {
+      scanf("%d%d",&xg[i],&gs[i]);
+      pre[i]=last[xg[i]];
+      last[xg[i]]=i;
+    }
+    
+    for(i=1;i<=m;i++)
+    {
+    yuan[i]+=ask(maxx)-ask(num[i]);
+    answer+=yuan[i];
+    j=last[i];
+    while(j>0)
+    {
+       ans[j]+=ask(maxx)-ask(gs[j]);
+       j=pre[j];
+    }
+    addtree(num[i],1);
+    }
+    memset(tree,0,sizeof(tree));
+    for(i=m;i>=1;i--)
+    {
+    j=last[i];
+    yuan[i]+=ask(num[i]-1);
+    while(j>0)
+    {
+       ans[j]+=ask(gs[j]-1);
+       j=pre[j];
+    }
+    addtree(num[i],1);
+    }
+    cout<<answer<<endl;
+    for(i=1;i<=n;i++)
+    {
+     printf("%I64d\n",answer-yuan[xg[i]]+ans[i]);
+    }
+   // system("pause");
+    return 0;
+}

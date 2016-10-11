@@ -1,0 +1,42 @@
+#include<iostream>
+#include<string>
+using namespace std;
+struct  aa
+{
+    string bd,ld;
+};
+aa a[200];
+int m,n;
+int ans;
+
+int main()
+{
+    int q,b,i,j,l,k;
+    cin>>n>>m;
+    for(i=1;i<=n;i++)   
+    {
+    cin>>a[i].ld;
+    for(j=0;j<=a[i].ld.size()-1;j++)
+    if((int(a[i].ld[j])>=65)&&(int(a[i].ld[j])<=90)) 
+    {a[i].ld[j]+=32;}
+    }
+    for(l=1;l<=m;l++)   
+    {
+    cin>>a[l].bd;
+    for(k=0;k<=a[l].bd.size()-1;k++)
+    if((int(a[l].bd[k])>=65)&&(int(a[l].bd[k])<=90))   
+    {a[l].bd[k]+=32;}
+    }
+    for(b=1;b<=n;b++)
+    {
+    for(q=1;q<=m;q++)
+    {if((a[b].ld.find(a[q].bd)>=0)&&(a[b].ld.find(a[q].bd)<=a[b].ld.size()-1))
+    {ans++;break;}
+    if((a[q].bd.find(a[b].ld)>=0)&&(a[q].bd.find(a[b].ld)<=a[q].bd.size()-1))
+    {ans++;break;}
+    }
+    }
+    cout<<ans;
+  //  system("pause");
+    return 0;
+} 

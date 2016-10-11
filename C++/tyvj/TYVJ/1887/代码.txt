@@ -1,0 +1,25 @@
+#include<iostream>
+using namespace std;
+
+int k;
+
+int ans[15];
+
+int main()
+{
+	cin>>k;
+    int n=2*k;
+    int m=1;
+	for(int i=1;i<=k;i++)
+		{
+			ans[i]=(ans[i-1]+m-1)%(n-i+1);
+			if(ans[i]<k)
+			{
+				i=0;
+				m++;
+			}
+		}
+    cout<<m<<endl;
+  //  system("pause");
+    return 0;
+}

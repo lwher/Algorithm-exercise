@@ -1,0 +1,96 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+struct
+{
+      int x,y,n,z;}e[20000];
+int d[20000];
+bool v[20000];
+int f[20000];   
+int q[1000000]; 
+int d2[20000];
+int o;  
+void add(int a,int b,int c)
+{
+     o++;
+     e[o].x=a;
+     e[o].y=b;
+     e[o].z=c;
+     e[o].n=f[a];
+     f[a]=o;
+}
+int main()
+{
+    int n,m;
+    cin>>n>>m;
+    for (int i=1;i<=m;i++)
+    {
+        int a,b,c;
+        cin>>a>>b>>c;
+        add(a,b,c);
+        add(b,a,c);
+    }
+    int head,tail;
+    head=1;tail=0;
+    int start,end;
+    cin>>start>>end;
+    q[1]=start;
+    memset(d,127,sizeof(d));
+    d[start]=0;
+    while (tail<=head)
+    {
+          tail++;
+          int l=q[tail];
+          v[l]=false;
+          int t=f[l];
+          while (t!=0)
+          {
+                if (d[l]+e[t].z<d[e[t].y])
+                {  d[e[t].y]=d[l]+e[t].z;
+                if (v[e[t].y]==false)
+                {
+                        head++;
+                        q[head]=e[t].y;
+                        v[e[t].y]=true;
+                }
+                }
+                t=e[t].n;
+          }
+    }
+    head=1;
+    tail=0;
+    memset(d2,127,sizeof(d2));
+    d2[end]=0;
+    q[1]=end;
+    memset(v,0,sizeof(v));
+    while (tail<=head)
+    {
+          tail++;
+          int l=q[tail];
+          v[l]=false;
+          int t=f[l];
+          while (t!=0)
+          {
+                if (d2[l]+e[t].z<d2[e[t].y])
+                {  d2[e[t].y]=d2[l]+e[t].z;
+                if (v[e[t].y]==false)
+                {
+                        head++;
+                        q[head]=e[t].y;
+                        v[e[t].y]=true;
+                }
+                }
+                t=e[t].n;
+          }
+    }
+    int maxx=2000000000;
+    for (int i=1;i<=n;i++)//枚举每个点,然后去D和D2中较大的一个最小值.
+    { if (d[i]>=d2[i])
+        if (d[i]<maxx) maxx=d[i];
+      if (d2[i]>=d[i])
+        if (d2[i]<maxx) maxx=d2[i];
+      }  
+    if (maxx<2000000000)
+    cout<<maxx<<endl; else cout<<"Peace!"<<endl;
+    return 0;
+}

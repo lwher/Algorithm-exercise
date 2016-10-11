@@ -1,0 +1,38 @@
+#include<iostream>
+#include<stdio.h>
+#include<cmath>
+using namespace std;
+int sum[200010],num[200010];
+int n,m,gs;
+int ans=99999999;
+int main()
+{
+	cin>>n>>m;
+	int i,j;
+	for(i=1;i<=n;i++)
+	{
+	  scanf("%d",&num[i]);
+	}
+	gs=1;
+	int tou=1,wei=1;
+	sum[num[1]]++;
+	while(tou<=wei && wei<n)
+	{
+	  wei++;
+	  if(sum[num[wei]]==0 && num[wei]<=m && num[wei]>=1)
+	  {
+		 gs++;
+	  }
+	  sum[num[wei]]++;
+	  while(sum[num[tou]]>1)
+	  {sum[num[tou]]--;tou++;}
+	  if(gs==m)
+	  {if(wei-tou+1<ans)  ans=wei-tou+1;}
+	}
+	if(ans!=99999999)
+	cout<<ans<<endl;
+	else 
+	cout<<"NO"<<endl;
+	//system("pause");
+	return 0;
+}

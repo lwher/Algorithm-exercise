@@ -1,0 +1,25 @@
+#include<iostream>
+using namespace std;
+int n,b;
+int a[21];
+long  answer=99999999;
+void doing(int top,int ans)
+{
+	if(top==n+1) {if((ans>=b)&&(answer>ans))answer=ans;return;}
+	if((ans>=b)&&(answer>ans)){answer=ans;return;}
+	if(ans>=b)return;
+	
+	doing(top+1,ans);
+	doing(top+1,ans+a[top]);
+}
+int main()
+{
+	int i,j;
+	cin>>n>>b;
+	for(i=1;i<=n;i++)
+	cin>>a[i];
+	doing(1,0);
+	cout<<answer-b;
+	//system("pause");
+	return 0;
+}

@@ -1,0 +1,30 @@
+program dfuij;
+var i,n:longint;
+    a:array[0..1000]of longint;
+begin
+readln(n);
+for i:=0 to n do
+    read(a[i]);
+if a[0]<>0 then
+    if a[0]=1 then write('x^',n)
+    else if a[0]=-1 then write('-x^',n)
+         else write(a[0],'x^',n);
+for i:=1 to n-2 do
+begin
+    if a[i]>0 then
+      if a[i]=1 then write('+x^',n-i)
+      else write('+',a[i],'x^',n-i);
+    if a[i]<0 then
+      if a[i]=-1 then write('-x^',n-i)
+      else write('-',abs(a[i]),'x^',n-i);
+end;
+if a[n-1]>0 then
+      if a[n-1]=1 then write('+x')
+      else write('+',a[n-1],'x');
+    if a[n-1]<0 then
+      if a[n-1]=-1 then write('-x')
+      else write('-',abs(a[n-1]),'x');
+if a[n]>0 then write('+',a[n]);
+if a[n]<0 then write(a[n]);
+end.
+ 

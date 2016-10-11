@@ -1,0 +1,19 @@
+求a^b 
+由于结果可能很大，我们现在只需要知道这个值
+mod 1012就可以了（为什么是1012？我的生日）
+有N组数
+n<=5
+a<=100
+b<=maxlongint;
+输入格式 InputFormat
+第1行1个数 n
+第2到n+1行 两个数a,b
+输出格式 OutputFormat
+n行 每个a^b mod 1012的值
+
+样例输入 SampleInput [复制数据]
+1
+2 2
+
+样例输出 SampleOutput [复制数据]
+4

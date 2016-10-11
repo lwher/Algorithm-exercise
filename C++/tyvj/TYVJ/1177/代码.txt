@@ -1,0 +1,15 @@
+  var
+i,n:longint;
+x,y:array[0..100] of longint;
+t:real;
+ begin
+  readln(n); t:=0;
+ for i:=1 to n do
+  read(x[i],y[i]);
+x[0]:=x[n];y[0]:=y[n];
+   for i:=0 to n-1 do
+
+     t:=t+x[i]*y[i+1]-y[i]*x[i+1];
+  t:=t/2;
+writeln(t:0:0);
+ end.

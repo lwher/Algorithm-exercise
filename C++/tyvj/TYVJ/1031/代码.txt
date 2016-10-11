@@ -1,0 +1,44 @@
+#include<iostream>
+#include<stdio.h>
+#include<stdlib.h>
+using namespace std;
+int n,m;
+int map[2501][2501];
+int d[2501];
+bool mark[2501];
+int qi,zhong;
+int main()
+{
+    int i,j;
+    int aa,bb,cc;
+    cin>>n>>m>>qi>>zhong;
+    for(i=1;i<=m;i++)
+    {
+    scanf("%d%d%d",&aa,&bb,&cc);
+    if(map[aa][bb]==0)
+    {map[aa][bb]=cc;map[bb][aa]=cc;}
+    if(map[aa][bb]>0 && cc<map[aa][bb])
+    {map[aa][bb]=cc;map[bb][aa]=cc;}
+    }
+    for(i=1;i<=n;i++)
+    d[i]=99999999;
+    d[qi]=0;
+    int inf=99999999;
+    int now;
+    for(i=1;i<=n;i++)
+    {
+       for(j=1;j<=n;j++)
+       {
+       if(!mark[j] && d[j]<inf)
+       {now=j;inf=d[j];}
+       }
+       for(j=1;j<=n;j++)
+       if(map[now][j]>0 && d[now]+map[now][j]<d[j])
+       d[j]=d[now]+map[now][j];
+       mark[now]=1;
+       inf=99999999;
+    }
+    cout<<d[zhong];
+    //system("pause");
+    return 0;
+}

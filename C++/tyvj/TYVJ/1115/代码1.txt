@@ -1,0 +1,25 @@
+#include<cstdio>
+#include<algorithm>
+#define sf scanf
+#define pf printf
+#define ps for(;;)
+#define lp(i,a,b) for(int i=a;i<=b;++i)
+using namespace std;
+int a[110],n,b[10010],m,ans;
+int gcd(int a,int b){
+return b?gcd(b,a%b):a;
+}
+int main(){
+sf("%d",&n);
+lp(i,1,n)sf("%d",&a[i]);
+sort(a+1,a+n+1);
+n=unique(a+1,a+n+1)-a-1;
+lp(i,1,n)
+lp(j,i+1,n)
+b[++m]=a[j]-a[i];
+ans=gcd(b[1],b[2]);
+lp(i,3,m)
+ans=gcd(ans,b[i]);
+pf("%d\n",ans);
+return 0;
+}

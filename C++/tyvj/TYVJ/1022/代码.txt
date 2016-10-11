@@ -1,0 +1,36 @@
+var
+  n:int64;
+  num:array[0..50] of longint;
+
+procedure init;
+begin
+  readln(n);
+  if n=0 then begin
+    writeln(n);
+    halt;
+  end;
+end;
+
+procedure work;
+begin
+  while (n<>0) do begin
+   inc(num[0]);
+   num[num[0]]:=abs(n mod (-2));
+   if n<0 then dec(n);
+   n:=n div -2;
+  end;
+end;
+
+procedure print;
+var
+  i:longint;
+begin
+  for i:=num[0] downto 1 do write(num[i]);
+  writeln;
+end;
+
+begin
+  init;
+  work;
+  print;
+end.

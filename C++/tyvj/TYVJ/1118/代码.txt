@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+int pow_(int a, int b)
+{
+if(b == 0){
+return 1;
+}
+if(b & 1){
+return (pow_((a * a) % 1012, b / 2) * a) % 1012;
+}else{
+return pow_((a * a) % 1012, b / 2) % 1012;
+}
+}
+int main(int argc, char **argv)
+{
+int n;
+int a, b;
+
+scanf("%d%d", &a, &b);
+printf("%d\n", pow_(a, b));
+
+//system("pause");
+return 0;
+}

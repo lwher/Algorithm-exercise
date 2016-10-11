@@ -1,0 +1,25 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int a[13];
+int n,ji;
+long ans;
+int main()
+{
+    int i;
+    for(i=1;i<=12;i++)
+    cin>>a[i];
+    for(i=1;i<=12;i++)
+    {
+      ans+=300;
+      if(ans<a[i]){cout<<'-'<<i;break;}
+      ans-=a[i];
+      ji+=ans/100*100;
+      ans=ans%100;
+      if(i==12)
+      {ans=ans+(ji*1.2);cout<<ans+1;
+      }
+    }
+    //system("pause");
+    return 0;
+}

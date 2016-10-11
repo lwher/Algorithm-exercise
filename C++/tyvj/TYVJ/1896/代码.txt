@@ -1,0 +1,49 @@
+#include <cstdlib>
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+
+using namespace std;
+
+int const maxn=25;
+int f[maxn+10][maxn+10]={0};
+
+int main()
+{
+	int n,m,hx,hy;
+	cin>>n>>m>>hx>>hy;
+	f[hx][hy]=-1;
+	if(hx-1>=0 && hy-2>=0)
+		f[hx-1][hy-2]=-1;
+	if(hx+1<=n && hy-2>=0)
+		f[hx+1][hy-2]=-1;
+	if(hx-2>=0 && hy-1>=0)
+		f[hx-2][hy-1]=-1;
+	if(hx+2<=n && hy-1>=0)
+		f[hx+2][hy-1]=-1;
+	if(hx-1>=0 && hy+1<=m)
+		f[hx-2][hy+1]=-1;
+	if(hx+2<=n && hy+1<=m)
+		f[hx+2][hy+1]=-1;
+	if(hx-1>=0 && hy+2<=m)
+		f[hx-1][hy+2]=-1;
+	if(hx+1<=n && hy+2<=m)
+		f[hx+1][hy+2]=-1;
+	
+	f[0][0]=1;
+	for(int i=0;i<=n;i++)
+	{
+		for(int j=0;j<=m;j++)
+		{
+			if(f[i][j]!=-1)
+			{
+				if(i-1>=0 && f[i-1][j]!=-1)	f[i][j]+=f[i-1][j];
+				if(j-1>=0 && f[i][j-1]!=-1)	f[i][j]+=f[i][j-1];
+			}
+		}
+	}
+	cout<<f[n][m]<<endl;
+
+	return 0;
+}

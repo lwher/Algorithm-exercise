@@ -1,0 +1,76 @@
+#include<iostream>
+using namespace std;
+struct yaodian
+{
+    int p,w;
+};
+yaodian c[10000];
+int a[1000000],b[1000000];
+int v,money,n;
+
+
+void qk()
+{
+     int j;
+     for(j=1;j<=v;j++)
+     {a[j]=0;  b[j]=0;}
+ }
+void   init()
+{
+       int i;
+       cin>>v;
+       cin>>n;
+       for(i=1;i<=n;i++)
+       {
+       cin>>c[i].w;
+       }
+       qk();
+       
+}
+void bij(int top)
+{
+     if(a[c[top].w]>=b[c[top].w])
+     {b[c[top].w]=a[c[top].w];}
+     else  {b[c[top].w]=b[c[top].w];}
+}
+void bijiao(int top,int i)
+{
+     if(a[i]>=b[i])
+     {b[i]=a[i];}
+     else{b[i]=b[i];}
+}
+void doing(int top)
+{
+     int j;
+     if(top==n+1) {return;}
+     if(c[top].w<=v)
+     {
+       b[c[top].w]=c[top].w;
+       if(a[c[top].w]>0){bij(top);}
+     }
+     for(j=1;j<=v;j++)
+     {
+     if((a[j]>0)&&(j+c[top].w<=v))
+     {b[j+c[top].w]=a[j]+c[top].w;
+     if(a[j+c[top].w]>0){bijiao(top,j+c[top].w);}}}
+     for(j=1;j<=v;j++)
+     {a[j]=b[j];}
+     doing(top+1);
+}
+void out()
+{
+     int i;
+     money=0;
+     for(i=2;i<=v;i++)
+     {if(a[i]>money) {money=a[i];}}
+     cout<<v-money;
+}
+int main()
+{
+    
+    init();
+    doing(1);
+    out();
+   
+   return 0;   
+}

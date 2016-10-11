@@ -1,0 +1,109 @@
+#include<iostream>
+#include<string>
+#include<stdlib.h>
+#include<stdio.h>
+
+using namespace std;
+//求两数的最小值
+int min(int a,int b)
+{
+    return (a<b?a:b);
+}
+ 
+//快速排序（从大到小）
+void qsort(int *num,int left,int right)
+{
+     int pivot=num[left];
+     int hold_left=left;
+     int hold_right=right;
+     while(left<right)
+     {
+         while(pivot>=num[right]&&left<right)
+         right--;
+         if(left<right)
+         {
+                       num[left]=num[right];
+                       left++;
+         }
+         while(pivot<=num[left]&&left<right)
+         left++;
+         if(left<right)
+         {
+                       num[right]=num[left];
+                       right--;
+         }
+     }
+     num[left]=pivot;
+     pivot=left;
+     left=hold_left;
+     right=hold_right;
+     if(left<pivot)
+     qsort(num,left,pivot-1);
+     if(pivot<right)
+     qsort(num,pivot+1,right);
+}
+int main()
+{
+    //各变量见解释
+    int row[1001]={0},column[1001]={0};
+    int row_copy[1001]={0},column_copy[1001]={0};
+    int row_result[1001],column_result[1001];
+    //m是行数，n是列数，k表示横向通道数，l表示纵向通道数，d是会讲话的同学对数
+    int m,n,k,l,d;
+ 
+   //读入数据
+    cin>>m>>n>>k>>l>>d;
+    for(int i=0;i<d;i++)
+    {
+            int x1,y1,x2,y2;
+            cin>>x1>>y1>>x2>>y2;
+            if(y1==y2)//如果是同一列，即如果讲话同学前后相邻
+            {
+                      row[min(x1,x2)]++;
+                      row_copy[min(x1,x2)]++;
+            }
+            else if(x1==x2)//如果是同一行，即如果讲话同学左右相邻
+            {
+                 column[min(y1,y2)]++;
+                 column_copy[min(y1,y2)]++;
+            }
+    }
+    qsort(row_copy,0,m);
+    qsort(column_copy,0,n);
+ 
+    //找出k条横向通道
+    for(int i=0;i<k;i++)
+    {
+            for(int j=1;j<=m;j++)
+            if(row[j]==row_copy[i])
+            {
+                                  row_result[i]=j;
+                                  row[j]=0;
+                                  break;
+            }
+    }
+    //找出l条纵向通道
+    for(int i=0;i<l;i++)
+    {
+            for(int j=1;j<=n;j++)
+            if(column[j]==column_copy[i])
+            {
+                                  column_result[i]=j;
+                                  column[j]=0;
+                                  break;
+            }
+    }
+    //从大到小排序一下
+    qsort(row_result,0,k-1);
+    qsort(column_result,0,l-1);
+ 
+   //因为题目要求是这些通道序号要从小到大输出，但刚才排序后是从大到小，所以要倒着输出
+    for(int i=k-1;i>0;i--)
+    cout<<row_result[i]<<" ";
+    cout<<row_result[0]<<endl;
+    for(int i=l-1;i>0;i--)
+    cout<<column_result[i]<<" ";
+    cout<<column_result[0]<<endl;
+  //  system("pause");
+    return 0;
+}

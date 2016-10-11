@@ -1,0 +1,35 @@
+#include <cstdlib>
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+#include <algorithm>
+
+using namespace std;
+
+const int maxn = 200000 + 50;
+
+int a[maxn];
+
+
+int main(){
+	int N;
+	cin >> N;
+	for(int i = 1; i <= N; i++)
+		scanf("%d", &a[i]);
+	sort(a+1, a+N+1);
+	int d, cnt = 0, j = 1;
+	d = a[1];
+	while(j <= N){
+		while(a[j] == d){
+			cnt++;
+			j++;
+		}
+		printf("%d %d\n", d, cnt);
+		cnt = 0;
+		d = a[j];
+	}
+	
+
+	return 0;
+}

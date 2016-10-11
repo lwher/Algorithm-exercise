@@ -1,0 +1,71 @@
+#include<stdlib.h>
+
+#include<stdio.h>
+
+#include<cmath>
+
+int a[10001];
+
+void quick(int l,int r){
+
+       if(l>=r)return;
+
+       int i=l,j=r,m=a[(i+j)/2],z=0;
+
+       while(i<=j){
+
+              while(a[i]>m)i++;
+
+              while(a[j]<m)j--;
+
+              if(i<=j){
+
+                     z=a[i];a[i]=a[j];a[j]=z;
+
+                     i++;j--;
+
+              }
+
+       }
+
+       quick(l,j);quick(i,r);
+
+       return;
+
+}
+
+int main(){
+
+       int n,k,i,z;
+
+       scanf("%d%d",&n,&k);
+
+       for(i=1;i<=n;i++)scanf("%d",&a[i]);
+
+       quick(1,n);
+
+       z=a[k]-a[n-k+1];
+
+       if(z<2)printf("NO\n");
+
+       else{
+
+              bool yes=true;
+
+              for(i=2;i<=sqrt(z);i++)
+
+                     if(z%i==0){
+
+                            yes=false;break;
+
+                     }
+
+              if(yes)printf("YES\n");else printf("NO\n");
+
+       }
+
+       printf("%d\n",z);
+
+       return 0;
+
+}

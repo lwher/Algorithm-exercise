@@ -1,0 +1,45 @@
+#include<iostream>
+#include<stdio.h>
+#include<string.h>
+#include<cmath>
+using namespace std;
+int tree[300000],mark[300000];
+int n,m;
+void buildtree(int l,int r,int k,int t,int a)
+{
+	if(l>r) return;
+	if(l>t || r<t) return;
+	if(l==r)  {tree[k]=a;return;}
+	int mid=(l+r)/2;
+	buildtree(l,mid,k*2,t,a);
+	buildtree(mid+1,r,k*2+1,t,a);
+	tree[k]=min(tree[k*2],tree[k*2+1]);
+}
+int ask(int l,int r,int zuo,int you,int k)
+{
+	if(l>you || r<zuo)  return 99999999;
+	if(l==r)  return tree[k];
+	if(l>=zuo && r<=you)  return tree[k];
+	int mid=(l+r)/2;
+	return min(ask(l,mid,zuo,you,k*2),ask(mid+1,r,zuo,you,k*2+1));
+}
+int main()
+{
+	memset(tree,127,sizeof(tree));
+	cin>>m>>n;
+	
+	int i,j,a,b,p;
+	
+	for(i=1;i<=m;i++)
+	{scanf("%d",&a);buildtree(1,m,1,i,a);}
+	for(i=1;i<=n;i++)
+	{
+	  scanf("%d%d%d",&p,&a,&b);
+	  if(p==1)
+	  printf("%d ",ask(1,m,a,b,1));
+	  if(p==2)
+	  buildtree(1,m,1,a,b);
+	}
+	//system("pause");
+	return 0;
+}

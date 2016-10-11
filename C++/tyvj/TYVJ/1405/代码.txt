@@ -1,0 +1,56 @@
+#include <iostream>
+#include<stdio.h>
+#define MAXN 200001
+using namespace std;
+int n,m,t[MAXN],len;
+long long heap[MAXN],ans;
+void put(int x)
+{
+     int fa,son,t;
+     len++;
+     heap[len]=x;
+     son=len;
+     while (son!=1 && heap[son>>1]>heap[son])
+     {
+           t=heap[son>>1];
+           heap[son>>1]=heap[son];
+           heap[son]=t;
+           son=son>>1;
+     }
+}
+void maintain ()
+{
+     int fa=1,son,tmp,i;
+     bool stop=1;
+     while ((fa<<1 <=len || (fa<<1)+1<=len) && stop==1)
+     {
+          if ( (fa<<1)+1>len || heap[fa<<1]<heap[(fa<<1)+1] )
+             son=fa<<1;
+          else son=(fa<<1)+1;
+          
+          if (heap[fa]>heap[son])
+          {
+             tmp=heap[fa];
+             heap[fa]=heap[son];
+             heap[son]=tmp;
+             fa=son;
+          }
+          else stop=0;
+     }
+}
+
+int main()
+{
+        int i;
+    cin>>n>>m;
+    for (i=1;i<=n;i++) scanf("%d",&t[i]);
+    for (i=1;i<=m;i++) put(t[i]);
+    for (i=m+1;i<=n;i++)
+    {
+        heap[1]+=t[i];
+        maintain();
+    }
+    for (i=1;i<=m;i++) if (heap[i]>ans) ans=heap[i];
+    printf("%d\n",ans);
+    return 0;
+}

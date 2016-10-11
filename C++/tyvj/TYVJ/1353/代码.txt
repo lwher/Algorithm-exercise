@@ -1,0 +1,31 @@
+#include<iostream>
+using namespace std;
+int q,w,n,m,i,j;
+int ans;
+char ch[21][21];
+bool mark[21][21];
+
+void doing(int x,int p)
+{
+     mark[x][p]=1;
+     if((x>1)&&(ch[x-1][p]!='#')&&(!mark[x-1][p])){ans++;doing(x-1,p);}
+     if((x<n)&&(ch[x+1][p]!='#')&&(!mark[x+1][p])){ans++;doing(x+1,p);}
+     if((p<m)&&(ch[x][p+1]!='#')&&(!mark[x][p+1])){ans++;doing(x,p+1);}
+     if((p>1)&&(ch[x][p-1]!='#')&&(!mark[x][p-1])){ans++;doing(x,p-1);}
+}
+int main()
+{
+    
+    cin>>n>>m;
+    for(i=1;i<=n;i++)
+{
+    for(j=1;j<=m;j++)
+    {cin>>ch[i][j];
+    if(ch[i][j]=='@') {q=i;w=j;}}
+}
+
+    doing(q,w);
+    cout<<ans;
+   // system("pause");
+    return 0;
+} 

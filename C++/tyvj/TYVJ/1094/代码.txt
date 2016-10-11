@@ -1,0 +1,43 @@
+#include<iostream>
+#include<stdio.h>
+#include<cmath>
+#include<algorithm>
+using namespace std;
+struct sth
+{
+	int hl,zhi;
+}xian[4000010];
+int n,m;
+int cishu[2];
+__int64 answer;
+inline bool comp(sth a,sth b)
+{
+	return a.zhi>b.zhi;
+}
+int main()
+{
+	cishu[0]=1;cishu[1]=1;
+	cin>>n>>m;
+	int i,j;
+	for(i=1;i<=n-1;i++)
+	{
+	  scanf("%d",&xian[i].zhi);
+	  xian[i].hl=0;
+	}
+	for(i=1;i<=m-1;i++)
+	{
+	  scanf("%d",&xian[i+n-1].zhi);
+	  xian[i+n-1].hl=1;
+	}
+	sort(xian+1,xian+n+m-1,comp);
+	for(i=1;i<=n+m-1;i++)
+	{
+		answer+=(long long)(xian[i].zhi)*cishu[xian[i].hl];
+		cishu[1-xian[i].hl]++;
+	}
+	cout<<answer<<endl;
+	
+	
+	//system("pause");
+	return 0;
+}

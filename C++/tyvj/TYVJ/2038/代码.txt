@@ -1,0 +1,42 @@
+#include<iostream>
+#include<cmath>
+#include<stdio.h>
+double n,x,y;
+double derta;
+double a1,a2;
+double ans;
+using namespace std;
+int main()
+{
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	cin>>n>>x>>y;
+	derta=((-8)*x*(-8)*x)-4*4*n*(4*x*x+4*y-4*n*y)*1.0000000;
+	if(n==1)  
+	{
+		if(x*x==y)
+		{
+		ans=x*x*1.00000000;
+		printf("%.6lf\n",ans);
+		}
+		else
+		cout<<"WA RE CE TLE MLE OLE"<<endl;
+	}
+	else
+	{
+	if(derta<0.00000000)
+	{cout<<"WA RE CE TLE MLE OLE"<<endl;}
+	else
+	{
+	a1=(8*x-sqrt(derta))/(2*4*n*1.0000000);
+	a2=(8*x+sqrt(derta))/(2*4*n*1.0000000);
+	ans=a1*a2*1.0000000;
+	printf("%.6lf\n",ans);
+    }
+    }
+    }
+	//system("pause");
+	return 0;
+}

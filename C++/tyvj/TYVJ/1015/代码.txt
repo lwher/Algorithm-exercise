@@ -1,0 +1,18 @@
+Var
+i,j,n                 :       Longint;
+cost                  :       Array [1..10] of Longint;
+f                     :       Array [-11..101] of Longint;
+
+Begin
+for i:=1 to 10 do read(cost[i]);readln;
+readln(n);
+
+Fillchar(f,sizeof(f),$7f);
+f[0]:=0;
+for i:=1 to n do
+    for j:=1 to 10 do
+      if f[i]>f[i-j]+cost[j] then
+        f[i]:=f[i-j]+cost[j];
+
+writeln(f[n]);
+End.

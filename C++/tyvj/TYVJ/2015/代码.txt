@@ -1,0 +1,42 @@
+#include<iostream>
+#include<string.h>
+#include<stdio.h>
+#include<cmath>
+using namespace std;
+int n,first,last;
+string s;
+bool o;
+int main()
+{
+	cin>>n>>first>>last;
+	cin>>s;
+	
+	int i,j;
+	int lasthigh=0,low=0;
+	int start,end;
+	for(i=0;i<=s.size()-1;i++)
+	{
+		if(s[i]=='D')
+		{
+			lasthigh--;
+			if(lasthigh<low)
+			low=lasthigh;
+		}
+		else
+		if(s[i]=='U')
+		{
+			lasthigh++;
+		}
+	}
+	for(i=0;i<=n-s.size()+1;i++)
+	{
+		start=first+i;
+		end=start+lasthigh;
+		if(start+low>=0  && end-(n-i-s.size())==last)
+		{o=1;break;}
+	}
+	if(o)  cout<<"lala";
+	else cout<<"T_T";
+	//system("pause");
+	return 0;
+}

@@ -1,0 +1,37 @@
+program vijos1034;
+var a:array[1..5000]of longint;
+    i,j,n,m,k,p,q,x,y:longint;
+
+function find(o:longint):longint;
+begin
+j:=o;
+while a[j]<>j do j:=a[j];
+exit(j);
+end;
+
+procedure init;
+begin
+readln(n,m,k);
+for i:=1 to n do a[i]:=i;
+for i:=1 to m do
+   begin
+     readln(x,y);
+     p:=find(x); q:=find(y);
+     a[p]:=q;
+   end;
+end;
+
+procedure work;
+begin
+for i:=1 to k do
+   begin
+     readln(x,y);
+     if find(x)=find(y) then writeln('Yes')
+       else writeln('No');
+   end;
+end;
+
+begin
+init;
+work;
+end.

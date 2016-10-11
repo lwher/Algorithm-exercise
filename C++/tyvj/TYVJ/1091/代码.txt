@@ -1,0 +1,24 @@
+Program Gp ;
+Const
+        Maxn = 1000 ;
+        Zy = 9901 ;
+Var
+        data : array[ 0 .. Maxn ] of longint ;
+        f : array[ 0 .. Maxn , -1000 .. 1000 ] of longint ;
+        n , i , j , ans , x : longint ;
+Begin
+        readln( n ) ;
+        for i := 1 to n do read( data[ i ] ) ;
+        ans := 0 ;
+        for i := 1 to n do
+        begin
+                ans := ( ans + i ) mod Zy ;
+                for j := i - 1 downto 1 do
+                begin
+                        x := data[ i ] - data[ j ] ;
+                        ans := ( ans + f[ j ] [ x ] ) mod Zy ;
+                        f[ i ] [ x ] := ( f[ i ] [ x ] + f[ j ] [ x ] + 1 ) mod Zy ;
+                end ;
+        end ;
+        writeln( ans ) ;
+end .

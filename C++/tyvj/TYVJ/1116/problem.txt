@@ -1,0 +1,12 @@
+描述 Description
+要求输出从1到n（1<=n<=10^6），有多少个整数n，满足2^n-n^2能被7整除
+输入格式 InputFormat
+一个数n
+输出格式 OutputFormat
+一个数，即满足的个数
+
+样例输入 SampleInput [复制数据]
+2
+
+样例输出 SampleOutput [复制数据]
+1

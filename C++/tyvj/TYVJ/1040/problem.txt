@@ -1,0 +1,16 @@
+表达式计算From Admin描述 Description
+给出一个表达式,其中运算符仅包含+,要求求出表达式的最终值
+
+
+输入格式 InputFormat
+仅一行，即为表达式
+输出格式 OutputFormat
+仅一行，既为表达式算出的结果
+
+样例输入 SampleInput [复制数据]
+1+1
+
+样例输出 SampleOutput [复制数据]
+2
+数据范围和注释 Hint
+表达式总长度<=1500

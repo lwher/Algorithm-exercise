@@ -1,0 +1,20 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+int oo[241][241];
+int main(){
+int a,b,x,y,i,j,xll,yll,xur,yur,s=0,f,d;
+cin>>x>>y>>i;
+for(j=1;j<=i;j++)
+{cin>>xll>>yll>>xur>>yur;
+for(f=xll;f<=xur;f++)
+for(d=yll;d<=yur;d++)
+oo[f][d]=1;
+}
+for(a=1;a<=x;a++)
+for(b=1;b<=y;b++)
+if(oo[a][b])
+s++;
+cout<<s;
+return 0;
+}

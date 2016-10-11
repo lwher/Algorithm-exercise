@@ -1,0 +1,33 @@
+var
+n,k,i,p,j,x,q:longint;
+a:array[0..1000] of longint;
+
+begin
+readln(n,q);
+fillchar(a,sizeof(a),0);
+a[0]:=1; a[1]:=1;
+for p:=1 to n do
+    begin
+      x:=0;
+      for i:=a[0] downto 1 do
+        begin
+          x:=a[i]*p;
+          a[i]:=x mod 10;
+          x:=x div 10;
+          k:=i;
+          while x>0 do
+            begin
+              inc(k);
+              x:=x+a[k];
+              a[k]:=x mod 10;
+              x:=x div 10;
+            end;
+          if k>a[0] then a[0]:=k;
+        end;
+    end;
+j:=1;
+while (a[j]=0)and(j<=a[0]) do inc(j);
+for i:=j+q-1 downto j do
+    if i<=a[0] then write(a[i]);
+writeln;
+end.

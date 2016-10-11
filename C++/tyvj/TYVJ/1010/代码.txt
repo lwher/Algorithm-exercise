@@ -1,0 +1,48 @@
+#include<iostream>
+#include<math.h>
+#include<string>
+#include<memory.h>
+using namespace std;
+
+//判断素数算法，我就不多解释了吧
+bool is_prime(int n)
+{
+     if(n<2)
+     return false;
+     else
+     {
+         for(int i=2;i<sqrt(n);i++)
+         if(n%i==0)
+         return false;
+     }
+     return true;
+}
+int main()
+{
+
+    //用数组abc记录每个小写字母出现的次数,maxn表示字母出现最多次数,minn表示出现最少次数
+    int abc[26],maxn=0,minn=1000;
+    string s;
+    cin>>s;
+    memset(abc,0,sizeof(abc));
+
+    //遍历一下整个字符串，用数组abc记录每个小写字母出现的次数
+    for(int i=0;i<s.length();i++)
+    abc[s[i]-'a']+=1;
+
+    //遍历一下数组abc，找出maxn和minn
+    for(int i=0;i<26;i++)
+    {
+            if(maxn<abc[i])
+            maxn=abc[i];
+            if(minn>abc[i]&&abc[i]!=0)
+            minn=abc[i];
+    }
+
+    //判断单词是否为Lucky Word，并按格式输出结果
+    if(is_prime(maxn-minn)==true)
+    cout<<"Lucky Word"<<endl<<(maxn-minn)<<endl;
+    else
+    cout<<"No Answer"<<endl<<0<<endl;
+    return 0;
+}

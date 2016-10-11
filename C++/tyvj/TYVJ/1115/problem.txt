@@ -1,0 +1,17 @@
+描述 Description
+给定N个数(n<=100),每个数<1000000,要求找到一
+个自然数，使得n个数mod这个自然数的余数相同
+，并且这个自然数最大
+输入格式 InputFormat
+第一行n
+第二行n个数
+输出格式 OutputFormat
+最大的符合条件的自然数
+
+样例输入 SampleInput [复制数据]
+3
+412 133 257
+
+样例输出 SampleOutput [复制数据]
+31
+

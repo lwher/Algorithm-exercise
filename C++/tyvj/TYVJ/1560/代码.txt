@@ -1,0 +1,62 @@
+#include<iostream>
+#include<cmath>
+#include<stdio.h>
+#include<string.h>
+#include<algorithm>
+using namespace std;
+int m,n;
+int xs[1000010],xx[1000010];
+int maxx,minn;
+long long int ans=0;
+inline bool comp(int a,int b)
+{
+		return a<b;
+}
+int main()
+{
+	cin>>m>>n;
+	int i,j;
+	for(i=1;i<=m;i++)
+	scanf("%d",&xx[i]);
+	for(i=1;i<=n;i++)
+	scanf("%d",&xs[i]);
+	sort(xx+1,xx+1+m,comp);
+	maxx=xx[m];
+	minn=xx[1];
+	
+	for(i=1;i<=n;i++)
+	{
+		if(xs[i]<=minn)
+		{ans+=abs(xs[i]-minn);}
+		else
+		if(xs[i]>=maxx)
+		{ans+=abs(xs[i]-maxx);}
+		else
+		{
+			int weizhi;
+			int l=1,r=m;
+			int mid;
+			while(l<r)
+			{
+				if(l+1==r)
+				{
+					if(abs(xx[l]-xs[i])<abs(xx[r]-xs[i]))
+					weizhi=l;
+					else
+					weizhi=r;
+					break;
+				}
+				mid=(l+r)>>1;
+				if(xx[mid]<=xs[i])
+				l=mid;
+				else
+				r=mid;
+		    }
+		    ans+=abs(xx[weizhi]-xs[i]);
+	    }
+    }
+    
+    cout<<ans;
+	//system("pause");
+	return 0;
+}

@@ -1,0 +1,85 @@
+program p1127;{计算细胞数}
+
+const dx:array [1..4] of longint=(-1,0,1,0);
+
+      dy:array [1..4] of longint=(0,1,0,-1);{搜索该结点上下左右四个结点时的坐标参数}
+
+var a:array [-10..100,-10..100] of longint;{初始化地图的存储，数组内元素有0和1两种值，若a[x,y]=0则该结点是细胞之间的间隙，若a[x,y]=1则该结点在细胞内部}
+
+    bool:array [0..100,0..100] of boolean;{判断[x,y]这个结点是否被处理过，若bool[x,y]则[x,y]结点已被处理过}
+
+    i,j,n,m,tot:longint;{i,j:循环控制变量；n,m:n行m列；tot:细胞的个数，即答案}
+
+    ch:char;{读数据时临时需要的字符变量}
+
+ 
+
+procedure dfs(x,y:longint);{搜索}
+
+var i:longint;{循环控制变量}
+
+begin
+
+ if not bool[x,y] then
+
+  bool[x,y]:=true
+
+ else exit;{判断结点[x,y]是否已被处理过，若被处理过则退出，若未被处理过则将bool[x,y]标记为true，并开始处理}
+
+ for i:=1 to 4 do
+
+  if (a[x+dx[i],y+dy[i]]=1) and (not bool[x+dx[i],y+dy[i]]) then
+
+   dfs(x+dx[i],y+dy[i]);{处理结点[x,y]上下左右的四个结点，用到了坐标参数dx[i]，dy[i]}
+
+end;
+
+ 
+
+begin
+
+ fillchar(a,sizeof(a),0);{初始化地图，为没有细胞的状态}
+
+ readln(n,m);{读入行数列数}
+
+ for i:=1 to n do
+
+  begin
+
+   for j:=1 to m do
+
+    begin
+
+     read(ch);
+
+     if ch>'0' then a[i,j]:=1;
+
+    end;
+
+   readln;
+
+  end;{根据读入数据对地图进行初始化}
+
+ 
+
+ for i:=1 to n do
+
+  for j:=1 to m do
+
+   begin
+
+    if (a[i,j]=1) and (not bool[i,j]) then
+
+     begin
+
+      inc(tot);
+
+      dfs(i,j);
+
+     end;
+
+   end;{计算细胞的个数，细胞内部的结点不再执行if语句的内容}
+
+ writeln(tot);{输出计算出的细胞的个数}
+
+end.{for p1127计算细胞数}

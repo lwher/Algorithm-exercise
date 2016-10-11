@@ -1,0 +1,69 @@
+Var
+n                     :       Longint;
+a,b                   :       Array [1..10000] of Longint;
+
+Procedure Init;
+var
+    i                   :       Longint;
+begin
+    readln(n);
+    for i:=1 to n do read(a[i]);readln;
+    for i:=1 to n do read(b[i]);readln;
+end;
+
+Procedure Qsort1(l,r:Longint);
+var
+    i,j,mid,t           :       Longint;
+begin
+    i:=l;j:=r;mid:=a[(l+r) shr 1];
+    Repeat
+      while a[i]<mid do inc(i);
+      while a[j]>mid do dec(j);
+      if i<=j then
+        begin
+          t:=a[i];a[i]:=a[j];a[j]:=t;
+          inc(i);dec(j);
+        end;
+    Until i>=j;
+    if i<r then Qsort1(i,r);
+    if l<j then Qsort1(l,j);
+end;
+
+Procedure Qsort2(l,r:Longint);
+var
+    i,j,mid,t           :       Longint;
+begin
+    i:=l;j:=r;mid:=b[(l+r) shr 1];
+    Repeat
+      while b[i]>mid do inc(i);
+      while b[j]<mid do dec(j);
+      if i<=j then
+        begin
+          t:=b[i];b[i]:=b[j];b[j]:=t;
+          inc(i);dec(j);
+        end;
+    Until i>=j;
+    if i<r then Qsort2(i,r);
+    if l<j then Qsort2(l,j);
+end;
+
+Procedure Main;
+begin
+    Qsort1(1,n);
+    Qsort2(1,n);
+end;
+
+Procedure Print;
+var
+    i,ans               :       Longint;
+begin
+    ans:=0;
+    for i:=1 to n do inc(ans,abs(a[i]-b[i]));
+    writeln(ans);
+end;
+
+Begin
+Init;
+Main;
+Print;
+end.

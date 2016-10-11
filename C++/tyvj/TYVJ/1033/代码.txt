@@ -1,0 +1,78 @@
+#include <cstdlib>
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+
+using namespace std;
+
+const int maxn = 5000;
+
+struct edge
+{
+	int u, v, next;
+	edge():next(0){}
+	~edge(){}
+}e[maxn];
+int P, first[maxn] = {0}, last = 0;
+bool vis[maxn] = {false};
+int ans = 0, step = 0;
+
+void InsEdge(int u, int v)
+{
+	last++;
+	e[last].u = u;
+	e[last].v = v;
+	e[last].next = first[u];
+	first[u] = last;
+	return ;
+}
+
+void init()
+{
+	int x, y, z;
+	cin >> P;
+	for(int t = 1; t < P; t++)
+	{
+		scanf("%d%d%d", &x, &y, &z);
+		InsEdge(x, y);
+		InsEdge(x, z);
+	}
+	return ;
+}
+
+void DFS(int top)
+{
+	if(top == 0)
+	{
+		if(step > ans)
+			ans = step;
+		return ;
+	}
+	else
+	{
+		for(int i = first[top]; i; i = e[i].next)
+		{
+			step++;
+			DFS(e[i].v);
+			step--;
+		}
+	}
+	return ;
+}
+
+void work()
+{
+	DFS(1);
+	printf("%d\n", ans);
+	return ;
+}
+
+
+int main()
+{
+	init();
+	work();
+
+	return 0;
+}

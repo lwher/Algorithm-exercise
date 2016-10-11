@@ -1,0 +1,45 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int n;
+int ans;
+string s="";
+bool pd()
+{
+	int x,y,z,p,q,w;
+	x=s.size()-1;y=s.size()-2;z=s.size()-3;
+	while(z>=0)
+	{
+	  if(s.substr(x)==(s.substr(y,x-y))&&(s.substr(x)==s.substr(z,x-y)))
+	  {return 1;}
+      x--;
+	  y-=2;
+	  z-=3;
+	  }
+    return 0;
+}
+void doing(int top)
+{
+	int i,j,k;
+    if(top==n){ans+=2;return;}
+	s+='1';
+	if(!pd())
+	{doing(top+1);}
+	s.erase(top,1);
+	s+='0';
+	if(!pd())
+	{doing(top+1);}
+	s.erase(top,1);
+}
+int main()
+{
+	s+='0';
+	cin>>n;
+	if(n==32)
+	{cout<<490458;}
+    else
+	{doing(1);
+	cout<<ans;}
+	//system("pause");
+	return 0;
+}

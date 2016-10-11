@@ -1,0 +1,82 @@
+#include<iostream>
+#include <stdlib.h> 
+#include<string.h>
+#include<cstring>
+using namespace std;
+struct sth
+{
+       int liang;
+};
+int a[20];
+sth th[60];
+
+int man,n,m;
+int all;
+int x,y,mid;
+bool mark[60];
+int comp(const void *a, const void *b)  
+{
+    sth *m=(sth *)a,*n=(sth *)b;
+	if ( (*m).liang<(*n).liang ) return 1;	else
+		if ( (*m).liang>(*n).liang ) return -1;	else
+			return 0;
+}
+bool jc(int top,int sum)
+{
+     int i;
+     if(sum==0)return 1;
+     if(sum+a[top]>(n-top+1)*mid) return 0;
+     if(top==n)return 1;
+     for(i=0;i<=m-1;i++)
+     {
+     if(!mark[i])
+     {
+           if(a[top]+th[i].liang<=mid)
+           {
+           a[top]+=th[i].liang; mark[i]=1;
+           if(jc(top,sum-th[i].liang))  return 1;
+           a[top]-=th[i].liang; mark[i]=0;
+           }      
+           else 
+           {
+           a[top+1]+=th[i].liang; mark[i]=1;
+           if(jc(top+1,sum-th[i].liang))  return 1;
+           a[top+1]=0; mark[i]=0;
+           }
+     }
+     }
+     return 0;
+}
+int main()
+{
+    int maa=0;
+    int i,j;
+    cin>>n>>m;
+    for(i=0;i<=m-1;i++)
+    {
+    cin>>th[i].liang;all+=th[i].liang;
+    if(maa<th[i].liang)maa=th[i].liang;
+    }
+    x=1;
+    y=all;
+    qsort (th,m,sizeof(sth),comp);
+    while(x<y)
+    {
+    mid=(x+y)/2;
+    
+    if(mid==man) break;
+    if(maa<=mid)
+    {
+    if(jc(1,all)) y=mid;
+    else x=mid;
+    memset(a,0,sizeof(a)); 
+    memset(mark,0,sizeof(mark));
+    }
+    else x=mid;
+    man=mid; 
+    }
+    
+    cout<<y;
+   // system("pause");
+    return 0;
+}

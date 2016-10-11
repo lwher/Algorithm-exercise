@@ -1,0 +1,34 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+int cc[1001][1001];
+bool mark[1001][1001];
+int c(int a,int b)
+{
+    long int i;
+     if(mark[a][b]) return cc[a][b];
+     if(b==1) return a;
+     if(a==b)  return 1;
+     if(a<b) return 0;
+     i=(c(a-1,b)%10007+c(a-1,b-1)%10007)%10007;
+     cc[a][b]=i;cc[a][a-b]=i;mark[a][b]=1;mark[a][a-b]=1;
+     return i;
+}
+int qf(int a,int b)
+{
+    int i;
+    long long int j=1;
+    for(i=1;i<=b;i++)
+    {j*=a;j%=10007;}
+    return j;
+}
+int main()
+{
+    int n,m,k,a,b;
+    cin>>a>>b>>k>>n>>m;
+    long int j;
+    j=(((c(k,n)*qf(a,n))%10007)*qf(b,m))%10007;
+    cout<<j;
+    //system("pause");
+    return 0;
+}

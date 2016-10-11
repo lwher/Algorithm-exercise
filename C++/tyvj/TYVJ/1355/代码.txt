@@ -1,0 +1,42 @@
+program p1355;
+var
+  n,i,sum,min:longint;
+  a,a1,b:array[1..10]of longint;
+begin
+  readln(n);
+  for i:=1 to n do
+    read(a[i]);
+  a1:=a;
+  for i:=1 to n do
+    read(b[i]);
+  sum:=0;min:=10000;
+  for i:=2 to n do
+    if a[i-1]<>b[i-1] then
+      begin
+        a[i-1]:=a[i-1] xor 1;
+        a[i]:=a[i] xor 1;
+        if i<n then
+          a[i+1]:=a[i+1] xor 1;
+        inc(sum);
+      end;
+  if a[n]=b[n] then
+    min:=sum;
+  sum:=1;a:=a1;
+  a[1]:=a[1] xor 1;a[2]:=a[2] xor 1;
+  for i:=2 to n do
+    if a[i-1]<>b[i-1] then
+      begin
+        a[i-1]:=a[i-1] xor 1;
+        a[i]:=a[i] xor 1;
+        if i<n then
+          a[i+1]:=a[i+1] xor 1;
+        inc(sum);
+      end;
+  if (a[n]=b[n])and(sum<min) then
+    min:=sum;
+  if min=10000 then
+    writeln('boring')
+  else
+    writeln(min);
+end.
+ 

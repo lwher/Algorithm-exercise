@@ -1,0 +1,16 @@
+描述 Description
+求a^b 
+由于结果可能很大，我们现在只需要知道这个值
+mod 1012就可以了（为什么是1012？我的生日）
+a<1000000
+b<1000000输入格式 InputFormat
+第一行两个数 a b
+输出格式 OutputFormat
+一行，就是mod 1012的值
+
+样例输入 SampleInput [复制数据]
+2 2
+
+样例输出 SampleOutput [复制数据]
+4
+

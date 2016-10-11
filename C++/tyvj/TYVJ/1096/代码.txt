@@ -1,0 +1,30 @@
+#include<iostream>
+using namespace std;
+int a[10000],b[100],c[10000];
+int m,n;
+int main()
+{
+    int i,j;
+    
+    cin>>n; cin>>m;
+    for(i=1;i<=n;i++)
+    cin>>b[i];
+   
+    for(i=1;i<=n;i++)
+    {
+    if(b[i]<=m)
+    { for(j=1;j<=m;j++)
+     if((a[j]>0)&&(j+b[i]<=m))
+     {
+      c[j+b[i]]+=a[j];
+     }
+     c[b[i]]++;
+     for(j=1;j<=m;j++)
+     a[j]=c[j];
+     }
+}
+     
+    cout<<a[m];
+   // system("pause");
+    return 0;
+}

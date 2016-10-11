@@ -1,0 +1,78 @@
+#include<iostream>
+#include<stdio.h>
+#include<stdlib.h>
+#include<cmath>
+using namespace std;
+struct sth
+{
+	int zuo,you;
+	double v;
+};
+sth a[5000001];
+int b[1001];
+int x[1001],y[1001];
+double ans;
+double answer;
+int n,m;
+int comp(const void *a, const void *b)  
+{
+    sth *m=(sth *)a,*n=(sth *)b;
+	if ( (*m).v<(*n).v ) return -1;	else
+		if ( (*m).v>(*n).v ) return 1;	else
+			return 0;
+}
+
+int main()
+{
+	int i,l,k=0;
+	
+	cin>>n;
+	
+	for(i=0;i<=n;i++)
+	{
+	 b[i]=i;
+    }
+    
+	for(i=1;i<=n;i++)
+	{
+	 cin>>x[i]>>y[i];
+    }
+    n++;
+    	for(i=0;i<=n-1;i++)
+    	for(l=0;l<=n-1;l++)
+    	{
+    	 if(i!=l)
+    	 {
+		 a[k].zuo=i;a[k].you=l;
+		 a[k].v=sqrt((x[i]-x[l])*(x[i]-x[l])+(y[i]-y[l])*(y[i]-y[l]));
+		 k++;
+		 }
+	    }
+    	
+    	
+    qsort (a,k-1,sizeof(sth),comp);
+
+    int j=0;
+    
+	while(j<n-1)
+    {
+	  for(i=0;i<=k-1;i++)
+    {
+	
+		  if(b[a[i].zuo]!=b[a[i].you])
+		  {
+			ans+=a[i].v;
+			j++;
+			for(l=0;l<=n-1;l++)
+			if((b[l]==b[a[i].you])&&(l!=a[i].you))
+			b[l]=b[a[i].zuo];
+			b[a[i].you]=b[a[i].zuo];
+		  }
+	}
+    }
+   // answer=double(ans);
+  //  cout<<answer;
+    printf("%.2lf",ans);
+	//system("pause");
+	return 0;
+}

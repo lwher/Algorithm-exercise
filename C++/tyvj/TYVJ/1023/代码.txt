@@ -1,0 +1,43 @@
+const
+
+ maxn=2010;
+
+ maxm=510;
+
+var
+
+ f:array[0..maxn,0..maxm] of longint;
+
+ n,m,i,j,k,d,ans:longint;
+
+begin
+
+ readln(n,m);
+
+ for i:=1 to n do
+
+  begin
+
+   readln(d);
+
+   for j:=0 to m-1 do
+
+    if f[i][j+1]<f[i-1][j]+d then
+
+     f[i][j+1]:=f[i-1][j]+d;
+
+   for j:=1 to m do
+
+    if i+j<=n then
+
+     if f[i+j][0]<f[i][j] then
+
+      f[i+j][0]:=f[i][j];
+
+   if f[i-1][0]>f[i][0] then f[i][0]:=f[i-1][0];
+
+ end;
+
+ writeln(f[n][0]);
+
+end.

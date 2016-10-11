@@ -1,0 +1,14 @@
+描述 Description
+输入两个自然数，输出他们的和
+
+输入格式 InputFormat
+输出两个自然数 x,y
+
+输出格式 OutputFormat
+一个数，即x和y的和
+
+样例输入 SampleInput [复制数据]
+123 500
+
+样例输出 SampleOutput [复制数据]
+623
